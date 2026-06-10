@@ -1,11 +1,12 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
+import { detectObject } from './detectObject.js';
 import 'dotenv/config'
-import GigaChat, { detectImage } from 'gigachat'
+import GigaChat from 'gigachat'
 import express from 'express'
 import cors from 'cors'
 import multer from 'multer'
-import fs from 'fs'
+import path from 'path';
 
 const app = express()
 
@@ -13,13 +14,30 @@ app.use(cors());
 app.use(express.json());
 
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/');
+    },
+
+    filename: function (req, file, cb) {
+
+        const ext =
+            path.extname(file.originalname);
+
+        cb(
+            null,
+            Date.now() + ext
+        );
+    }
+});
+
 const upload = multer({
-    dest: 'uploads/'
-})
+    storage
+});
 
 const giga = new GigaChat({
     credentials: process.env.GIGACHAT_API_KEY,
-    model: 'GigaChat-2-Pro'
+    model: 'GigaChat'
 })
 
 
@@ -54,60 +72,64 @@ app.post(
     '/analyze',
     upload.single('image'),
     async (req, res) => {
+        console.log(req.file);
         try {
-            const buffer = fs.readFileSync(req.file.path)
-
-            const blob = new Blob(
-                [buffer],
-                { type: 'image/jpeg' }
-            )
-
-            const uploaded = await giga.uploadFile(blob)
-            console.log(uploaded)
-
-            const objectName = await detectObject(req.file.path)
+            const objectName =
+                await detectObject(req.file.path);
             
-            console.log('Object:', objectName)
-
-            const translationResponse = await giga.chat({
-                messages: [
-                    {
-                        role: 'user',
-                        content: `Для слова "${objectName}"
-                                Верни только JSON.
-                                Выбери только ОДИН наиболее распространённый японский вариантю
-                                Не используй  "or", "/", запятые или несколько вариантов.
-                                Формат:
-                                {
+            if (
+                !objectName ||
+                objectName === 'unknown'
+            ) {
+                return res.status(400).json({
+                    error: 'Object not found'
+                });
+            }
+        
+            console.log('Object:', objectName);
+        
+            const translationResponse =
+                await giga.chat({
+                    messages: [
+                        {
+                            role: 'user',
+                            content: `Для слова "${objectName}"
+                            Верни только JSON.
+                            Выбери только ОДИН наиболее распространённый японский вариант.
+                            Не используй "or", "/", запятые или несколько вариантов.
+        
+                            Формат:
+                            {
                                 "object": "",
                                 "japanese": "",
                                 "romaji": "",
                                 "translation": ""
-                                }
-                                `
-                    }
-                ]
-            })
-            
-            console.log(translationResponse.choices[0].message.content)
-
-            const answer = translationResponse.choices[0].message.content
-
+                            }`
+                        }
+                    ]
+                });
+        
+            const answer =
+                translationResponse
+                .choices[0]
+                .message.content;
+        
             const cleanAnswer = answer
                 .replace(/```json/g, '')
                 .replace(/```/g, '')
                 .trim();
-
+        
             res.json({
                 answer: cleanAnswer
             });
-
-        } catch (error) {
-        console.error(error)
-
-        res.status(500).json({
-            error: error.message
-        })
+        
+        }
+        catch (error) {
+            console.error(error);
+        
+            res.status(500).json({
+                error: error.message
+            });
         }
     }
 )
