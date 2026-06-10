@@ -1,0 +1,118 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+
+import 'dotenv/config'
+import GigaChat, { detectImage } from 'gigachat'
+import express from 'express'
+import cors from 'cors'
+import multer from 'multer'
+import fs from 'fs'
+
+const app = express()
+
+app.use(cors());
+app.use(express.json());
+
+
+const upload = multer({
+    dest: 'uploads/'
+})
+
+const giga = new GigaChat({
+    credentials: process.env.GIGACHAT_API_KEY,
+    model: 'GigaChat-2-Pro'
+})
+
+
+app.post('/chat', async (req, res) => {
+    try {
+        const { message } = req.body;
+
+        const response = await giga.chat({
+            messages: [
+                {
+                role: 'user',
+                content: message
+                }
+            ]
+        });
+
+        res.json({
+            answer: response.choices[0].message.content
+        });
+
+    }   catch(error) {
+        console.error(error);
+
+        res.status(500).json({
+            error: error.message
+        });
+    }
+});
+
+
+app.post(
+    '/analyze',
+    upload.single('image'),
+    async (req, res) => {
+        try {
+            const buffer = fs.readFileSync(req.file.path)
+
+            const blob = new Blob(
+                [buffer],
+                { type: 'image/jpeg' }
+            )
+
+            const uploaded = await giga.uploadFile(blob)
+            console.log(uploaded)
+
+            const objectName = await detectObject(req.file.path)
+            
+            console.log('Object:', objectName)
+
+            const translationResponse = await giga.chat({
+                messages: [
+                    {
+                        role: 'user',
+                        content: `Для слова "${objectName}"
+                                Верни только JSON.
+                                Выбери только ОДИН наиболее распространённый японский вариантю
+                                Не используй  "or", "/", запятые или несколько вариантов.
+                                Формат:
+                                {
+                                "object": "",
+                                "japanese": "",
+                                "romaji": "",
+                                "translation": ""
+                                }
+                                `
+                    }
+                ]
+            })
+            
+            console.log(translationResponse.choices[0].message.content)
+
+            const answer = translationResponse.choices[0].message.content
+
+            const cleanAnswer = answer
+                .replace(/```json/g, '')
+                .replace(/```/g, '')
+                .trim();
+
+            res.json({
+                answer: cleanAnswer
+            });
+
+        } catch (error) {
+        console.error(error)
+
+        res.status(500).json({
+            error: error.message
+        })
+        }
+    }
+)
+
+app.listen(3000, () => {
+    console.log('Server started');
+});
+
