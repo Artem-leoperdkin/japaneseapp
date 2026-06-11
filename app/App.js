@@ -7,6 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from 'expo-image-manipulator'
 
@@ -81,9 +82,57 @@ export default function App() {
       }
 
       setResult(parsed);
-  
+      console.log(parsed);
       console.log(data);
   
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const showWords = async () => {
+    const words = await AsyncStorage.getItem('words');
+    console.log(words ? JSON.parse(words) : []);
+  };
+
+  const saveWord = async () => {
+    if (!result) return;
+  
+    try {
+      const existingWords =
+        await AsyncStorage.getItem('words');
+  
+      const words =
+        existingWords
+          ? JSON.parse(existingWords)
+          : [];
+  
+      const newWord = {
+        id: Date.now().toString(),
+        image,
+        object: result.object,
+        japanese: result.japanese,
+        romaji: result.romaji,
+        translation: result.translation,
+      };
+      
+      const exists = words.find(
+        word => word.object === result.object
+      );
+      
+      if (exists) {
+        alert('Это слово уже сохранено');
+        return;
+      }
+
+      words.push(newWord);
+  
+      await AsyncStorage.setItem(
+        'words',
+        JSON.stringify(words)
+      );
+  
+      alert('Карточка сохранена');
     } catch (error) {
       console.log(error);
     }
@@ -126,8 +175,18 @@ export default function App() {
           <Text style={styles.translation}>
             {result.translation}
           </Text>
+
+          <Button
+            title="Сохранить слово"
+            onPress={saveWord}
+          />
         </View>
       )}
+
+    <Button
+      title="Показать слова"
+      onPress={showWords}
+    />
 
     </View>
   );
