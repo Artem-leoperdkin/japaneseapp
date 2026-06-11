@@ -10,10 +10,12 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from 'expo-image-manipulator'
+import WordsScreen  from "./screens/WordsScreen.js";
 
 export default function App() {
   const [image, setImage] = useState(null);
   const [result, setResult] = useState(null);
+  const [screen, setScreen] = useState('home');
 
   const pickImage = async () => {
     const result =
@@ -138,12 +140,27 @@ export default function App() {
     }
   };
 
+  if (screen == 'words') {
+    return <WordsScreen
+      goBack={() => setScreen('home')}
+    />
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
         Japanese App
       </Text>
+      
+      <Button
+        title="Главная"
+        onPress={() => setScreen('home')}
+      />
+
+      <Button
+        title="Мои слова"
+        onPress={() => setScreen('words')}
+      />
 
       <Button
         title="Выбрать фото"
