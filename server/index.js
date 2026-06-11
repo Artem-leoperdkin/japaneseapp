@@ -1,5 +1,6 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
+import { dictionary } from './dictionary.js';
 import { detectObject } from './detectObject.js';
 import 'dotenv/config'
 import GigaChat from 'gigachat'
@@ -88,38 +89,21 @@ app.post(
         
             console.log('Object:', objectName);
         
-            const translationResponse =
-                await giga.chat({
-                    messages: [
-                        {
-                            role: 'user',
-                            content: `Для слова "${objectName}"
-                            Верни только JSON.
-                            Выбери только ОДИН наиболее распространённый японский вариант.
-                            Не используй "or", "/", запятые или несколько вариантов.
-                            Формат:
-                            {
-                                "object": "",
-                                "japanese": "",
-                                "romaji": "",
-                                "translation": ""
-                            }`
-                        }
-                    ]
-                });
-        
-            const answer =
-                translationResponse
-                .choices[0]
-                .message.content;
-        
-            const cleanAnswer = answer
-                .replace(/```json/g, '')
-                .replace(/```/g, '')
-                .trim();
-        
+            const word = dictionary[objectName];
+
+            if (!word) {
+            return res.status(404).json({
+                error: `Object "${objectName}" not found in dictionary`
+            });
+            }
+
             res.json({
-                answer: cleanAnswer
+            answer: JSON.stringify({
+                object: objectName,
+                japanese: word.japanese,
+                romaji: word.romaji,
+                translation: word.translation,
+            })
             });
         
         }
