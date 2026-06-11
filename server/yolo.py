@@ -16,6 +16,10 @@ best_box = max(
     key = lambda box: float(box.conf[0])
 )
 
+if float(best_box.conf[0]) < 0.6:
+    print("unknown")
+    exit()
+
 class_id = int(best_box.cls[0])
 
 object_name = results[0].names[class_id]

@@ -5,6 +5,7 @@ import {
   Button,
   Image,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -92,11 +93,6 @@ export default function App() {
     }
   };
 
-  const showWords = async () => {
-    const words = await AsyncStorage.getItem('words');
-    console.log(words ? JSON.parse(words) : []);
-  };
-
   const saveWord = async () => {
     if (!result) return;
   
@@ -151,21 +147,24 @@ export default function App() {
       <Text style={styles.title}>
         Japanese App
       </Text>
-      
-      <Button
-        title="Главная"
-        onPress={() => setScreen('home')}
-      />
 
-      <Button
-        title="Мои слова"
+      <TouchableOpacity
+        style={styles.button}
         onPress={() => setScreen('words')}
-      />
+      >
+        <Text style={styles.buttonText}>
+          Мои слова
+        </Text>
+      </TouchableOpacity>       
 
-      <Button
-        title="Выбрать фото"
+      <TouchableOpacity
+        style={styles.button}
         onPress={pickImage}
-      />
+      >
+        <Text style={styles.buttonText}>
+          Выбрать фото
+        </Text>
+      </TouchableOpacity>
 
       {image && (
         <Image
@@ -174,10 +173,14 @@ export default function App() {
         />
       )}
 
-      <Button
-        title="Определить объект"
+      <TouchableOpacity
+        style={styles.button}
         onPress={analyzeImage}
-      />
+      >
+        <Text style={styles.buttonText}>
+          Определить объект
+        </Text>
+      </TouchableOpacity>
 
       {result && (
         <View style={styles.resultBox}>
@@ -193,17 +196,18 @@ export default function App() {
             {result.translation}
           </Text>
 
-          <Button
-            title="Сохранить слово"
-            onPress={saveWord}
-          />
         </View>
+
       )}
 
-    <Button
-      title="Показать слова"
-      onPress={showWords}
-    />
+      <TouchableOpacity
+        style={styles.button}
+        onPress={saveWord}
+      >
+        <Text style={styles.buttonText}>
+          Сохранить слово
+        </Text>
+      </TouchableOpacity>
 
     </View>
   );
@@ -215,11 +219,36 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: "center",
     justifyContent: "center",
+
+    backgroundColor: '#f5f5f5'
   },
 
   title: {
-    fontSize: 28,
-    marginBottom: 20,
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginBottom: 25,
+  },
+
+  button: {
+    backgroundColor: '#111',
+  
+    paddingVertical: 14,
+    paddingHorizontal: 25,
+  
+    borderRadius: 12,
+  
+    marginTop: 12,
+  
+    width: 220,
+  },
+  
+  buttonText: {
+    color: '#fff',
+  
+    textAlign: 'center',
+  
+    fontSize: 16,
+    fontWeight: '600',
   },
 
   image: {
@@ -232,19 +261,35 @@ const styles = StyleSheet.create({
   resultBox: {
     marginTop: 20,
     alignItems: 'center',
+
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 20,
+
+    width: '100%',
+    maxWidth: 320,
+
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+
+    elevation: 5,
   },
   
   japanese: {
     fontSize: 42,
+    fontWeight: 'bold',
   },
   
   romaji: {
-    fontSize: 22,
-    marginTop: 10,
+    fontSize: 18,
+    color: '#666',
+    marginTop: 8,
   },
   
   translation: {
     fontSize: 20,
     marginTop: 10,
+    textAlign: 'center',
   },
 });

@@ -20,21 +20,34 @@ export default function WordCard({ word }) {
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: '#fff',
+        backgroundColor: "#ffffff",
+
         padding: 16,
-        borderRadius: 12,
+
+        borderRadius: 16,
+
         marginBottom: 12,
-        width: '100%',
+
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.08,
+        shadowRadius: 8,
+
+        elevation: 4,
     },
 
     japanese: {
         fontSize: 28,
-        fontWeight: 'bold',
+        fontWeight: "bold",
     },
 
-    omaji: {
+    romaji: {
         fontSize: 18,
         marginTop: 5,
+        color: "#666",
     },
 
     translation: {
