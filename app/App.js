@@ -12,6 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from 'expo-image-manipulator'
 import WordsScreen  from "./screens/WordsScreen.js";
+import QuizScreen from "./screens/QuizScreen.js";
 
 export default function App() {
   const [image, setImage] = useState(null);
@@ -142,6 +143,14 @@ export default function App() {
     />
   }
 
+  if (screen == 'quiz') {
+    return (
+      <QuizScreen
+        goBack={() => setScreen('home')}
+      />
+    )
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -155,7 +164,12 @@ export default function App() {
         <Text style={styles.buttonText}>
           Мои слова
         </Text>
-      </TouchableOpacity>       
+      </TouchableOpacity>
+
+      <Button
+        title="Проверка"
+        onPress={() => setScreen('quiz')}
+      />
 
       <TouchableOpacity
         style={styles.button}
