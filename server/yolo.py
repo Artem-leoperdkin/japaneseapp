@@ -7,16 +7,22 @@ image_path = sys.argv[1]
 
 results = model(image_path)
 
+
 if len(results[0].boxes) == 0:
     print("unknown")
     exit()
+
+for box in results[0].boxes:
+    conf = float(box.conf[0])
+    cls = int(box.cls[0])
+
 
 best_box = max(
     results[0].boxes,
     key = lambda box: float(box.conf[0])
 )
 
-if float(best_box.conf[0]) < 0.6:
+if float(best_box.conf[0]) < 0.4:
     print("unknown")
     exit()
 
