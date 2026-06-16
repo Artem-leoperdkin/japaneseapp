@@ -3,7 +3,7 @@ import { exec } from "child_process";
 export function detectObject(imagePath) {
     return new Promise((resolve, reject) => {
         exec(
-            `python yolo.py "${imagePath}"`,
+            `python clip.py "${imagePath}"`,
             (error, stdout, stderr) => {        
                 if (stderr) {
                     console.log("PYTHON STDERR:");
