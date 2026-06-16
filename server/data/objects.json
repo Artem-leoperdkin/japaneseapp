@@ -1,0 +1,206 @@
+[
+    {
+        "id": "table",
+        "clip_label": "table"
+    },
+    {
+        "id": "chair",
+        "clip_label": "chair"
+    },
+    {
+        "id": "bed",
+        "clip_label": "bed"
+    },
+    {
+        "id": "door",
+        "clip_label": "door"
+    },
+    {
+        "id": "window",
+        "clip_label": "window"
+    },
+    {
+        "id": "lamp",
+        "clip_label": "lamp"
+    },
+    {
+        "id": "sofa",
+        "clip_label": "sofa"
+    },
+    {
+        "id": "pillow",
+        "clip_label": "pillow"
+    },
+    {
+        "id": "blanket",
+        "clip_label": "blanket"
+    },
+    {
+        "id": "mirror",
+        "clip_label": "mirror"
+    },
+    {
+        "id": "clock",
+        "clip_label": "clock"
+    },
+    {
+        "id": "laptop",
+        "clip_label": "laptop computer"
+    },
+    {
+        "id": "keyboard",
+        "clip_label": "keyboard"
+    },
+    {
+        "id": "mouse",
+        "clip_label": "mouse"
+    },
+    {
+        "id": "monitor",
+        "clip_label": "monitor"
+    },
+    {
+        "id": "phone",
+        "clip_label": "phone"
+    },
+    {
+        "id": "tablet",
+        "clip_label": "tablet"
+    },
+    {
+        "id": "camera",
+        "clip_label": "camera"
+    },
+    {
+        "id": "television",
+        "clip_label": "television"
+    },
+    {
+        "id": "headphones",
+        "clip_label": "headphones"
+    },
+    {
+        "id": "charger",
+        "clip_label": "charger"
+    },
+    {
+        "id": "cup",
+        "clip_label": "cup"
+    },
+    {
+        "id": "plate",
+        "clip_label": "plate"
+    },
+    {
+        "id": "bowl",
+        "clip_label": "bowl"
+    },
+    {
+        "id": "spoon",
+        "clip_label": "spoon"
+    },
+    {
+        "id": "fork",
+        "clip_label": "fork"
+    },
+    {
+        "id": "knife",
+        "clip_label": "knife"
+    },
+    {
+        "id": "water_bottle",
+        "clip_label": "water bottle"
+    },
+    {
+        "id": "kettle",
+        "clip_label": "kettle"
+    },
+    {
+        "id": "microwave",
+        "clip_label": "microwave"
+    },
+    {
+        "id": "refrigerator",
+        "clip_label": "refrigerator"
+    },
+    {
+        "id": "apple",
+        "clip_label": "apple"
+    },
+    {
+        "id": "banana",
+        "clip_label": "banana"
+    },
+    {
+        "id": "orange",
+        "clip_label": "orange"
+    },
+    {
+        "id": "bread",
+        "clip_label": "bread"
+    },
+    {
+        "id": "egg",
+        "clip_label": "egg"
+    },
+    {
+        "id": "coffee",
+        "clip_label": "coffee"
+    },
+    {
+        "id": "tea",
+        "clip_label": "tea"
+    },
+    {
+        "id": "milk",
+        "clip_label": "milk"
+    },
+    {
+        "id": "pizza",
+        "clip_label": "pizza"
+    },
+    {
+        "id": "sandwich",
+        "clip_label": "sandwich"
+    },
+    {
+        "id": "cat",
+        "clip_label": "cat"
+    },
+    {
+        "id": "dog",
+        "clip_label": "dog"
+    },
+    {
+        "id": "bird",
+        "clip_label": "bird"
+    },
+    {
+        "id": "fish",
+        "clip_label": "fish"
+    },
+    {
+        "id": "horse",
+        "clip_label": "horse"
+    },
+    {
+        "id": "car",
+        "clip_label": "car"
+    },
+    {
+        "id": "bus",
+        "clip_label": "bus"
+    },
+    {
+        "id": "train",
+        "clip_label": "train"
+    },
+    {
+        "id": "bicycle",
+        "clip_label": "bicycle"
+    },
+    {
+        "id": "motorcycle",
+        "clip_label": "motorcycle"
+    }
+]

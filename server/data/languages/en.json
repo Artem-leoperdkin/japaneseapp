@@ -1,0 +1,21 @@
+{
+    "cat": {
+        "word": "cat"
+    },
+
+    "dog": {
+        "word": "dog"
+    },
+
+    "water_bottle": {
+        "word": "water bottle"
+    },
+
+    "laptop": {
+        "word": "laptop"
+    },
+
+    "car": {
+        "word": "car"
+    }
+}

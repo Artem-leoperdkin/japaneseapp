@@ -1,0 +1,26 @@
+{
+    "cat": {
+        "word": "猫",
+        "romaji": "neko"
+    },
+
+    "dog": {
+        "word": "犬",
+        "romaji": "inu"
+    },
+
+    "water_bottle": {
+        "word": "水筒",
+        "romaji": "suitou"
+    },
+
+    "laptop": {
+        "word": "ノートパソコン",
+        "romaji": "nooto pasokon"
+    },
+
+    "car": {
+        "word": "車",
+        "romaji": "kuruma"
+    }
+}

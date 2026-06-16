@@ -1,0 +1,21 @@
+{
+    "cat": {
+        "word": "gatto"
+    },
+
+    "dog": {
+        "word": "cane"
+    },
+
+    "water_bottle": {
+        "word": "borraccia"
+    },
+
+    "laptop": {
+        "word": "computer portatile"
+    },
+
+    "car": {
+        "word": "automobile"
+    }
+}

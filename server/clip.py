@@ -2,8 +2,17 @@ import sys
 import torch
 import open_clip
 from PIL import Image
+import json
 
 image_path = sys.argv[1]
+with open(
+    "data/objects.json",
+    "r",
+    encoding="utf-8"
+) as file:
+    objects = json.load(file)
+
+labels = [obj["clip_label"] for obj in objects]
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -13,18 +22,6 @@ model, _, preprocess = open_clip.create_model_and_transforms(
 )
 
 tokenizer = open_clip.get_tokenizer("ViT-B-32")
-
-labels = [
-    "laptop",
-    "cat",
-    "dog",
-    "car",
-    "water bottle",
-    "mouse",
-    "keyboard",
-    "chair",
-    "headphones"
-]
 
 image = preprocess(
     Image.open(image_path)
@@ -47,4 +44,4 @@ with torch.no_grad():
 
 best_idx = similarity.argmax().item()
 
-print(labels[best_idx])
+print(objects[best_idx]["id"])
