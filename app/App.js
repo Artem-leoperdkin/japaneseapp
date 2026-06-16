@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -13,11 +13,25 @@ import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from 'expo-image-manipulator'
 import WordsScreen  from "./screens/WordsScreen.js";
 import QuizScreen from "./screens/QuizScreen.js";
+import { getLanguage } from "./services/settings.js";
+import SettingsScreen from "./screens/SettingsScreen.js";
 
 export default function App() {
   const [image, setImage] = useState(null);
   const [result, setResult] = useState(null);
   const [screen, setScreen] = useState('home');
+  const [language, setLanguage] = useState('ja');
+
+  useEffect(() => {
+    loadLanguage();
+  }, []);
+
+  const loadLanguage = async () => {
+    const savedLanguage = 
+      await getLanguage();
+
+    setLanguage(savedLanguage);
+  };
 
   const pickImage = async () => {
     const result =
@@ -151,11 +165,34 @@ export default function App() {
     )
   }
 
+  if (screen ==='settings') {
+    return (
+      <SettingsScreen
+        goBack={() => setScreen('home')}
+        language={language}
+        setLanguage={setLanguage}
+      />
+    )
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        Japanese App
+        Learning App
       </Text>
+
+      <Text style={{ marginBottom: 10 }}>
+        Язык: {language}
+      </Text>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => setScreen('settings')}
+      >
+        <Text style={styles.buttonText}>
+          Настройки
+        </Text>
+      </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.button}
