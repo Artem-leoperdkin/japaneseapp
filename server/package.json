@@ -12,13 +12,8 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@huggingface/transformers": "^4.2.0",
     "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "gigachat": "^0.0.20",
-    "multer": "^2.1.1",
-    "onnxruntime-node": "^1.26.0",
-    "sharp": "^0.34.5"
+    "multer": "^2.1.1"
   }
 }

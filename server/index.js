@@ -1,10 +1,6 @@
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-
 import { getRandomWord } from './data/getRandomWord.js';
 import { dictionary } from './dictionary.js';
 import { detectObject } from './detectObject.js';
-import 'dotenv/config'
-import GigaChat from 'gigachat'
 import express from 'express'
 import cors from 'cors'
 import multer from 'multer'
@@ -35,38 +31,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage
-});
-
-const giga = new GigaChat({
-    credentials: process.env.GIGACHAT_API_KEY,
-    model: 'GigaChat'
-})
-
-
-app.post('/chat', async (req, res) => {
-    try {
-        const { message } = req.body;
-
-        const response = await giga.chat({
-            messages: [
-                {
-                role: 'user',
-                content: message
-                }
-            ]
-        });
-
-        res.json({
-            answer: response.choices[0].message.content
-        });
-
-    }   catch(error) {
-        console.error(error);
-
-        res.status(500).json({
-            error: error.message
-        });
-    }
 });
 
 
