@@ -3,24 +3,204 @@
         "word": "猫",
         "romaji": "neko"
     },
-
     "dog": {
         "word": "犬",
         "romaji": "inu"
     },
-
     "water_bottle": {
         "word": "水筒",
         "romaji": "suitou"
     },
-
     "laptop": {
         "word": "ノートパソコン",
         "romaji": "nooto pasokon"
     },
-
     "car": {
         "word": "車",
         "romaji": "kuruma"
+    },
+    "table": {
+        "word": "テーブル",
+        "romaji": "teeburu"
+    },
+    "chair": {
+        "word": "椅子",
+        "romaji": "isu"
+    },
+    "bed": {
+        "word": "ベッド",
+        "romaji": "beddo"
+    },
+    "door": {
+        "word": "ドア",
+        "romaji": "doa"
+    },
+    "window": {
+        "word": "窓",
+        "romaji": "mado"
+    },
+    "lamp": {
+        "word": "ランプ",
+        "romaji": "ranpu"
+    },
+    "sofa": {
+        "word": "ソファ",
+        "romaji": "sofa"
+    },
+    "pillow": {
+        "word": "枕",
+        "romaji": "makura"
+    },
+    "blanket": {
+        "word": "毛布",
+        "romaji": "moufu"
+    },
+    "mirror": {
+        "word": "鏡",
+        "romaji": "kagami"
+    },
+    "clock": {
+        "word": "時計",
+        "romaji": "tokei"
+    },
+    "keyboard": {
+        "word": "キーボード",
+        "romaji": "kiiboodo"
+    },
+    "mouse": {
+        "word": "マウス",
+        "romaji": "mausu"
+    },
+    "monitor": {
+        "word": "モニター",
+        "romaji": "monitaa"
+    },
+    "phone": {
+        "word": "電話",
+        "romaji": "denwa"
+    },
+    "tablet": {
+        "word": "タブレット",
+        "romaji": "taburetto"
+    },
+    "camera": {
+        "word": "カメラ",
+        "romaji": "kamera"
+    },
+    "television": {
+        "word": "テレビ",
+        "romaji": "terebi"
+    },
+    "headphones": {
+        "word": "ヘッドホン",
+        "romaji": "heddohon"
+    },
+    "charger": {
+        "word": "充電器",
+        "romaji": "juudenki"
+    },
+    "cup": {
+        "word": "カップ",
+        "romaji": "kappu"
+    },
+    "plate": {
+        "word": "皿",
+        "romaji": "sara"
+    },
+    "bowl": {
+        "word": "ボウル",
+        "romaji": "bouru"
+    },
+    "spoon": {
+        "word": "スプーン",
+        "romaji": "supuun"
+    },
+    "fork": {
+        "word": "フォーク",
+        "romaji": "fooku"
+    },
+    "knife": {
+        "word": "ナイフ",
+        "romaji": "naifu"
+    },
+    "kettle": {
+        "word": "ケトル",
+        "romaji": "ketoru"
+    },
+    "microwave": {
+        "word": "電子レンジ",
+        "romaji": "denshi renji"
+    },
+    "refrigerator": {
+        "word": "冷蔵庫",
+        "romaji": "reizouko"
+    },
+    "apple": {
+        "word": "りんご",
+        "romaji": "ringo"
+    },
+    "banana": {
+        "word": "バナナ",
+        "romaji": "banana"
+    },
+    "orange": {
+        "word": "オレンジ",
+        "romaji": "orenji"
+    },
+    "bread": {
+        "word": "パン",
+        "romaji": "pan"
+    },
+    "egg": {
+        "word": "卵",
+        "romaji": "tamago"
+    },
+    "coffee": {
+        "word": "コーヒー",
+        "romaji": "koohii"
+    },
+    "tea": {
+        "word": "お茶",
+        "romaji": "ocha"
+    },
+    "milk": {
+        "word": "牛乳",
+        "romaji": "gyuunyuu"
+    },
+    "pizza": {
+        "word": "ピザ",
+        "romaji": "piza"
+    },
+    "sandwich": {
+        "word": "サンドイッチ",
+        "romaji": "sandoicchi"
+    },
+    "bird": {
+        "word": "鳥",
+        "romaji": "tori"
+    },
+    "fish": {
+        "word": "魚",
+        "romaji": "sakana"
+    },
+    "horse": {
+        "word": "馬",
+        "romaji": "uma"
+    },
+    "bus": {
+        "word": "バス",
+        "romaji": "basu"
+    },
+    "train": {
+        "word": "電車",
+        "romaji": "densha"
+    },
+    "bicycle": {
+        "word": "自転車",
+        "romaji": "jitensha"
+    },
+    "motorcycle": {
+        "word": "オートバイ",
+        "romaji": "ootobai"
     }
 }

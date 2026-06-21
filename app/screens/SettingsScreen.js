@@ -12,9 +12,7 @@ export default function SettingsScreen({
 
     const selectLanguage = async (lang) => {
         await saveLanguage(lang);
-
         setLanguage(lang);
-
         goBack();
     };
 

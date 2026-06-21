@@ -1,5 +1,6 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
+import { getRandomWord } from './data/getRandomWord.js';
 import { dictionary } from './dictionary.js';
 import { detectObject } from './detectObject.js';
 import 'dotenv/config'
@@ -116,6 +117,34 @@ app.post(
         }
     }
 )
+
+
+app.post('/random-word', (req, res) => {
+    try {
+        const language = req.query.language || 'ja';
+        const objectIds = req.body.objectIds || [];
+
+        const word = getRandomWord(
+            language,
+            objectIds
+        );
+
+        if (!word) {
+            return res.status(404).json({
+                error: 'Нет доступных слов для этого языка',
+            });
+        }
+
+        return res.json(word);
+    } catch (error) {
+        console.log('RANDOM WORD ERROR:', error);
+
+        return res.status(500).json({
+            error: error.message,
+        });
+    }
+});
+
 
 app.listen(3000, () => {
     console.log('Server started');

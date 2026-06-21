@@ -1,20 +1,43 @@
-import fs from "fs";
-import { getWord } from "./getWord.js";
+import fs from 'fs';
+import { getWord } from './getWord.js';
 
-export function getRandomWord(objectId, language = "ja") {
-
+export function getRandomWord(
+    language = 'ja',
+    allowedObjectIds = []
+) {
     const raw = fs.readFileSync(
-        `data/objects.json`,
-        "utf-8"
+        'data/objects.json',
+        'utf-8'
     );
 
     const objects = JSON.parse(raw);
 
+    const availableObjects = objects.filter((object) => {
+        const isInUserLibrary = allowedObjectIds.includes(
+            object.id
+        );
+
+        const translation = getWord(
+            object.id,
+            language
+        );
+
+        return (
+            isInUserLibrary &&
+            translation &&
+            translation.word
+        );
+    });
+
+    if (availableObjects.length === 0) {
+        return null;
+    }
+
     const randomIndex = Math.floor(
-        Math.random() * objects.length
+        Math.random() * availableObjects.length
     );
 
-    const object = objects[randomIndex];
+    const object = availableObjects[randomIndex];
 
     const translation = getWord(
         object.id,
@@ -23,6 +46,7 @@ export function getRandomWord(objectId, language = "ja") {
 
     return {
         object: object.id,
-        ...translation
+        word: translation.word,
+        romaji: translation.romaji || null,
     };
 }

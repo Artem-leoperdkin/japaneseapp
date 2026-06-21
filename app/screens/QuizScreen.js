@@ -8,48 +8,88 @@ import {
 
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as ImageManipulator from 'expo-image-manipulator';
-import { getWords } from '../services/storage';
 
-export default function QuizScreen({ goBack }) {
+export default function QuizScreen({ goBack, language, savedWords }) {
     const [currentWord, setCurrentWord] = useState(null);
     const [checkResult, setCheckResult] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [loadError, setLoadError] = useState(null);
 
     const cameraRef = useRef(null);
 
     const [permission, requestPermission] = useCameraPermissions();
 
-
     useEffect(() => {
         loadRandomWord();
-    }, []);
+    }, [language, savedWords]);
 
     const loadRandomWord = async () => {
-        const words = await getWords();
 
-        if (words.length === 0) {
+        if (!savedWords || savedWords.length === 0) {
+            setLoadError(
+                'Сначала добавь хотя бы одно слово в библиотеку'
+            );
+            setIsLoading(false);
             return;
         }
 
-        const randomIndex = Math.floor(Math.random() * words.length);
+        try {
+            setIsLoading(true);
+            setLoadError(null);
+            setCheckResult(null);
+            setCurrentWord(null);
 
-        setCurrentWord(words[randomIndex]);
-
-        setCheckResult(null);
+            const objectIds = savedWords.map(
+                word => word.object
+            );
+    
+            const response = await fetch(
+                `http://192.168.0.111:3000/random-word?language=${language}`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        objectIds
+                    }),
+                }
+            );
+    
+            const data = await response.json();
+    
+            console.log('RANDOM WORD RESPONSE:', data);
+    
+            if (!response.ok || data.error) {
+                throw new Error(
+                    data.error || 'Сервер не отдал слово'
+                );
+            }
+    
+            if (!data.object || !data.word) {
+                throw new Error(
+                    'Сервер вернул слово в неправильном формате'
+                );
+            }
+    
+            setCurrentWord(data);
+        } catch (error) {
+            console.log('Ошибка загрузки слова:', error);
+            setLoadError(error.message);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const takePhoto = async () => {
         try {
-            if (!cameraRef.current) return;
+            if (!cameraRef.current || !currentWord) return;
 
-            const photo =
-                await cameraRef.current.takePictureAsync({
-                    quality: 0.8,
-                });
-
-            console.log(photo.uri);
+            const photo = await cameraRef.current.takePictureAsync({
+                quality: 0.8,
+            });
 
             checkAnswer(photo.uri);
-
         } catch (error) {
             console.log(error);
         }
@@ -84,6 +124,15 @@ export default function QuizScreen({ goBack }) {
 
             const data = await response.json();
 
+            console.log('ANALYZE RESPONSE:', data);
+
+            if (!response.ok || data.error) {
+                console.log('Ошибка распознавания:', data.error);
+
+                setCheckResult('wrong');
+                return;
+            }
+
             const parsed = JSON.parse(data.answer);
 
             console.log('EXPECTED:', currentWord.object);
@@ -95,16 +144,13 @@ export default function QuizScreen({ goBack }) {
                 setTimeout(() => {
                     loadRandomWord();
                 }, 1200);
-
             } else {
                 setCheckResult('wrong');
             }
-
         } catch (error) {
             console.log(error);
         }
     };
-
 
     if (!permission) {
         return <View />;
@@ -113,10 +159,8 @@ export default function QuizScreen({ goBack }) {
     if (!permission.granted) {
         return (
             <View style={styles.container}>
-                <Text>
-                    Нужно разрешение на камеру
-                </Text>
-        
+                <Text>Нужно разрешение на камеру</Text>
+
                 <Button
                     title="Разрешить"
                     onPress={requestPermission}
@@ -127,16 +171,13 @@ export default function QuizScreen({ goBack }) {
 
     return (
         <View style={styles.container}>
-    
-            <Text style={styles.title}>
-                Проверка
-            </Text>
-    
+            <Text style={styles.title}>Проверка</Text>
+
             <Button
                 title="Назад"
                 onPress={goBack}
             />
-    
+
             <View style={styles.cameraContainer}>
                 <CameraView
                     ref={cameraRef}
@@ -144,16 +185,31 @@ export default function QuizScreen({ goBack }) {
                     facing="back"
                 />
             </View>
-    
-            {currentWord && (
+
+            {isLoading && (
+                <Text style={styles.loading}>
+                    Загружаю слово...
+                </Text>
+            )}
+
+            {loadError && (
+                <Text style={styles.wrong}>
+                    Ошибка: {loadError}
+                </Text>
+            )}
+
+            {currentWord && !isLoading && (
                 <>
                     <Text style={styles.japanese}>
-                        {currentWord.japanese}
+                        {currentWord.word}
                     </Text>
-    
-                    <Text style={styles.romaji}>
-                        {currentWord.romaji}
-                    </Text>
+
+                    {currentWord.romaji && (
+                        <Text style={styles.
+                            romaji}>
+                            {currentWord.romaji}
+                        </Text>
+                    )}
 
                     <Button
                         title="Сфотографировать"
@@ -173,7 +229,6 @@ export default function QuizScreen({ goBack }) {
                     )}
                 </>
             )}
-
         </View>
     );
 }
@@ -181,53 +236,63 @@ export default function QuizScreen({ goBack }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         padding: 20,
         backgroundColor: '#f5f5f5',
     },
 
     title: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        marginBottom: 20,
-    },
-
-    japanese: {
-        fontSize: 48,
-        fontWeight: 'bold',
-        marginTop: 30,
-    },
-
-    romaji: {
-        fontSize: 22,
-        marginTop: 10,
-        marginBottom: 30,
-        color: '#666',
-    },
-
-    correct: {
+        marginTop: 55,
         fontSize: 28,
-        marginTop: 20,
-    },
-
-    wrong: {
-        fontSize: 28,
-        marginTop: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
     },
 
     cameraContainer: {
         width: '100%',
-        height: 350,
-
-        borderRadius: 20,
+        height: 280,
         overflow: 'hidden',
-
+        borderRadius: 16,
         marginTop: 20,
         marginBottom: 20,
     },
 
     camera: {
         flex: 1,
+    },
+
+    japanese: {
+        textAlign: 'center',
+        fontSize: 36,
+        fontWeight: 'bold',
+        marginTop: 8,
+    },
+
+    romaji: {
+        textAlign: 'center',
+        fontSize: 20,
+        color: '#666',
+        marginBottom: 15,
+    },
+
+    loading: {
+        textAlign: 'center',
+        fontSize: 18,
+        marginTop: 20,
+    },
+
+    correct: {
+        textAlign: 'center',
+        marginTop: 16,
+        fontSize: 22,
+        color: 'green',
+        fontWeight: 'bold',
+    },
+
+    wrong: {
+        textAlign: 'center',
+        marginTop: 16,
+        fontSize: 22,
+        color: 'red',
+        fontWeight: 'bold',
     },
 });

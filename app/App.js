@@ -14,16 +14,20 @@ import * as ImageManipulator from 'expo-image-manipulator'
 import WordsScreen  from "./screens/WordsScreen.js";
 import QuizScreen from "./screens/QuizScreen.js";
 import { getLanguage } from "./services/settings.js";
+import { getWords } from "./services/storage.js";
 import SettingsScreen from "./screens/SettingsScreen.js";
+
 
 export default function App() {
   const [image, setImage] = useState(null);
   const [result, setResult] = useState(null);
   const [screen, setScreen] = useState('home');
   const [language, setLanguage] = useState('ja');
+  const [savedWords, setSavedWords] = useState([]);
 
   useEffect(() => {
     loadLanguage();
+    loadSavedWords();
   }, []);
 
   const loadLanguage = async () => {
@@ -144,12 +148,20 @@ export default function App() {
         'words',
         JSON.stringify(words)
       );
+
+      setSavedWords(words);
   
       alert('Карточка сохранена');
     } catch (error) {
       console.log(error);
     }
   };
+
+  const loadSavedWords = async () => {
+    const words = await getWords();
+
+    setSavedWords(words);
+  }
 
   if (screen == 'words') {
     return <WordsScreen
@@ -161,6 +173,8 @@ export default function App() {
     return (
       <QuizScreen
         goBack={() => setScreen('home')}
+        language={language}
+        savedWords={savedWords}
       />
     )
   }
