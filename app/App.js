@@ -77,6 +77,8 @@ export default function App() {
         type: "image/jpeg",
         name: "photo.jpg",
       });
+
+      formData.append('language', language)
       
       console.log(converted.uri);
 
@@ -100,11 +102,7 @@ export default function App() {
       console.log("PARSED:");
       console.log(parsed);
 
-      if (
-        !parsed.japanese ||
-        !parsed.romaji ||
-        !parsed.translation
-      ) {
+      if (!parsed.word || !parsed.translation) {
         alert(
           'Не удалось распознать слово. Попробуйте другое фото.'
         );
@@ -137,13 +135,14 @@ export default function App() {
         id: Date.now().toString(),
         image,
         object: result.object,
-        japanese: result.japanese,
+        japanese: result.word,
         romaji: result.romaji,
         translation: result.translation,
+        language: result.language,
       };
       
       const exists = words.find(
-        word => word.object === result.object
+        word => word.object === result.object && word.language === result.language
       );
       
       if (exists) {
@@ -175,9 +174,14 @@ export default function App() {
     setSavedWords(words);
   }
 
+  const currentLanguageWords = savedWords.filter(
+    word => word.language === language
+  );
+
   if (screen == 'words') {
     return <WordsScreen
       goBack={() => setScreen('home')}
+      savedWords={currentLanguageWords}
     />
   }
 
@@ -186,7 +190,7 @@ export default function App() {
       <QuizScreen
         goBack={() => setScreen('home')}
         language={language}
-        savedWords={savedWords}
+        savedWords={currentLanguageWords}
       />
     )
   }
@@ -313,12 +317,14 @@ export default function App() {
           ) : (
             <View style={styles.resultBox}>
               <Text style={styles.japanese}>
-                {result.japanese}
+                {result.word}
               </Text>
-  
-              <Text style={styles.romaji}>
-                {result.romaji}
-              </Text>
+            
+              {result.romaji && (
+                <Text style={styles.romaji}>
+                  {result.romaji}
+                </Text>
+              )}
   
               <Text style={styles.translation}>
                 {result.translation}

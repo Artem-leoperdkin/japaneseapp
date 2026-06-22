@@ -1,10 +1,10 @@
 import { getRandomWord } from './data/getRandomWord.js';
-import { dictionary } from './dictionary.js';
 import { detectObject } from './detectObject.js';
-import express from 'express'
+import express, { json } from 'express'
 import cors from 'cors'
 import multer from 'multer'
 import path from 'path';
+import { getWord } from './data/getWord.js';
 
 const app = express()
 
@@ -54,21 +54,24 @@ app.post(
         
             console.log('Object:', objectName);
         
-            const word = dictionary[objectName];
+            const language = req.body.language || 'ja';
 
-            if (!word) {
-            return res.status(404).json({
-                error: `Object "${objectName}" not found in dictionary`
-            });
+            const word = getWord(objectName, language);
+
+            if (!word || !word.word) {
+                return res.status(404).json({
+                    error: `Для объекта "${objectName}" нет перевода на выбранный язык`
+                });
             }
 
             res.json({
-            answer: JSON.stringify({
-                object: objectName,
-                japanese: word.japanese,
-                romaji: word.romaji,
-                translation: word.translation,
-            })
+                answer: JSON.stringify({
+                    object: objectName,
+                    word: word.word,
+                    romanji: word.romanji || null,
+                    translation: word.translation || null,
+                    language,
+                }),
             });
         
         }

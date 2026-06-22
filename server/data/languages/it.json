@@ -2,20 +2,154 @@
     "cat": {
         "word": "gatto"
     },
-
     "dog": {
         "word": "cane"
     },
-
     "water_bottle": {
         "word": "borraccia"
     },
-
     "laptop": {
         "word": "computer portatile"
     },
-
     "car": {
         "word": "automobile"
+    },
+    "table": {
+        "word": "tavolo"
+    },
+    "chair": {
+        "word": "sedia"
+    },
+    "bed": {
+        "word": "letto"
+    },
+    "door": {
+        "word": "porta"
+    },
+    "window": {
+        "word": "finestra"
+    },
+    "lamp": {
+        "word": "lampada"
+    },
+    "sofa": {
+        "word": "divano"
+    },
+    "pillow": {
+        "word": "cuscino"
+    },
+    "blanket": {
+        "word": "coperta"
+    },
+    "mirror": {
+        "word": "specchio"
+    },
+    "clock": {
+        "word": "orologio"
+    },
+    "keyboard": {
+        "word": "tastiera"
+    },
+    "mouse": {
+        "word": "mouse"
+    },
+    "monitor": {
+        "word": "monitor"
+    },
+    "phone": {
+        "word": "telefono"
+    },
+    "tablet": {
+        "word": "tablet"
+    },
+    "camera": {
+        "word": "fotocamera"
+    },
+    "television": {
+        "word": "televisione"
+    },
+    "headphones": {
+        "word": "cuffie"
+    },
+    "charger": {
+        "word": "caricabatterie"
+    },
+    "cup": {
+        "word": "tazza"
+    },
+    "plate": {
+        "word": "piatto"
+    },
+    "bowl": {
+        "word": "ciotola"
+    },
+    "spoon": {
+        "word": "cucchiaio"
+    },
+    "fork": {
+        "word": "forchetta"
+    },
+    "knife": {
+        "word": "coltello"
+    },
+    "kettle": {
+        "word": "bollitore"
+    },
+    "microwave": {
+        "word": "forno a microonde"
+    },
+    "refrigerator": {
+        "word": "frigorifero"
+    },
+    "apple": {
+        "word": "mela"
+    },
+    "banana": {
+        "word": "banana"
+    },
+    "orange": {
+        "word": "arancia"
+    },
+    "bread": {
+        "word": "pane"
+    },
+    "egg": {
+        "word": "uovo"
+    },
+    "coffee": {
+        "word": "caffè"
+    },
+    "tea": {
+        "word": "tè"
+    },
+    "milk": {
+        "word": "latte"
+    },
+    "pizza": {
+        "word": "pizza"
+    },
+    "sandwich": {
+        "word": "panino"
+    },
+    "bird": {
+        "word": "uccello"
+    },
+    "fish": {
+        "word": "pesce"
+    },
+    "horse": {
+        "word": "cavallo"
+    },
+    "bus": {
+        "word": "autobus"
+    },
+    "train": {
+        "word": "treno"
+    },
+    "bicycle": {
+        "word": "bicicletta"
+    },
+    "motorcycle": {
+        "word": "motocicletta"
     }
 }
