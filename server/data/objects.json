@@ -1,206 +1,410 @@
 [
     {
-        "id": "table",
-        "clip_label": "table"
-    },
-    {
-        "id": "chair",
-        "clip_label": "chair"
-    },
-    {
-        "id": "bed",
-        "clip_label": "bed"
-    },
-    {
-        "id": "door",
-        "clip_label": "door"
-    },
-    {
-        "id": "window",
-        "clip_label": "window"
-    },
-    {
-        "id": "lamp",
-        "clip_label": "lamp"
-    },
-    {
-        "id": "sofa",
-        "clip_label": "sofa"
-    },
-    {
-        "id": "pillow",
-        "clip_label": "pillow"
-    },
-    {
-        "id": "blanket",
-        "clip_label": "blanket"
-    },
-    {
-        "id": "mirror",
-        "clip_label": "mirror"
-    },
-    {
-        "id": "clock",
-        "clip_label": "clock"
-    },
-    {
-        "id": "laptop",
-        "clip_label": "laptop computer"
-    },
-    {
-        "id": "keyboard",
-        "clip_label": "keyboard"
-    },
-    {
-        "id": "mouse",
-        "clip_label": "mouse"
-    },
-    {
-        "id": "monitor",
-        "clip_label": "monitor"
-    },
-    {
-        "id": "phone",
-        "clip_label": "phone"
-    },
-    {
-        "id": "tablet",
-        "clip_label": "tablet"
-    },
-    {
-        "id": "camera",
-        "clip_label": "camera"
-    },
-    {
-        "id": "television",
-        "clip_label": "television"
-    },
-    {
-        "id": "headphones",
-        "clip_label": "headphones"
-    },
-    {
-        "id": "charger",
-        "clip_label": "charger"
-    },
-    {
-        "id": "cup",
-        "clip_label": "cup"
-    },
-    {
-        "id": "plate",
-        "clip_label": "plate"
-    },
-    {
-        "id": "bowl",
-        "clip_label": "bowl"
-    },
-    {
-        "id": "spoon",
-        "clip_label": "spoon"
-    },
-    {
-        "id": "fork",
-        "clip_label": "fork"
-    },
-    {
-        "id": "knife",
-        "clip_label": "knife"
-    },
-    {
-        "id": "water_bottle",
-        "clip_label": "water bottle"
-    },
-    {
-        "id": "kettle",
-        "clip_label": "kettle"
-    },
-    {
-        "id": "microwave",
-        "clip_label": "microwave"
-    },
-    {
-        "id": "refrigerator",
-        "clip_label": "refrigerator"
-    },
-    {
-        "id": "apple",
-        "clip_label": "apple"
-    },
-    {
-        "id": "banana",
-        "clip_label": "banana"
-    },
-    {
-        "id": "orange",
-        "clip_label": "orange"
-    },
-    {
-        "id": "bread",
-        "clip_label": "bread"
-    },
-    {
-        "id": "egg",
-        "clip_label": "egg"
-    },
-    {
-        "id": "coffee",
-        "clip_label": "coffee"
-    },
-    {
-        "id": "tea",
-        "clip_label": "tea"
-    },
-    {
-        "id": "milk",
-        "clip_label": "milk"
-    },
-    {
-        "id": "pizza",
-        "clip_label": "pizza"
-    },
-    {
-        "id": "sandwich",
-        "clip_label": "sandwich"
-    },
-    {
         "id": "cat",
-        "clip_label": "cat"
+        "clip_label": "cat",
+        "translations": {
+            "ru": "кошка",
+            "en": "cat"
+        }
     },
     {
         "id": "dog",
-        "clip_label": "dog"
+        "clip_label": "dog",
+        "translations": {
+            "ru": "собака",
+            "en": "dog"
+        }
     },
     {
-        "id": "bird",
-        "clip_label": "bird"
+        "id": "water_bottle",
+        "clip_label": "water bottle",
+        "translations": {
+            "ru": "бутылка для воды",
+            "en": "water bottle"
+        }
     },
     {
-        "id": "fish",
-        "clip_label": "fish"
-    },
-    {
-        "id": "horse",
-        "clip_label": "horse"
+        "id": "laptop",
+        "clip_label": "laptop computer",
+        "translations": {
+            "ru": "ноутбук",
+            "en": "laptop computer"
+        }
     },
     {
         "id": "car",
-        "clip_label": "car"
+        "clip_label": "car",
+        "translations": {
+            "ru": "автомобиль",
+            "en": "car"
+        }
+    },
+    {
+        "id": "table",
+        "clip_label": "table",
+        "translations": {
+            "ru": "стол",
+            "en": "table"
+        }
+    },
+    {
+        "id": "chair",
+        "clip_label": "chair",
+        "translations": {
+            "ru": "стул",
+            "en": "chair"
+        }
+    },
+    {
+        "id": "bed",
+        "clip_label": "bed",
+        "translations": {
+            "ru": "кровать",
+            "en": "bed"
+        }
+    },
+    {
+        "id": "door",
+        "clip_label": "door",
+        "translations": {
+            "ru": "дверь",
+            "en": "door"
+        }
+    },
+    {
+        "id": "window",
+        "clip_label": "window",
+        "translations": {
+            "ru": "окно",
+            "en": "window"
+        }
+    },
+    {
+        "id": "lamp",
+        "clip_label": "lamp",
+        "translations": {
+            "ru": "лампа",
+            "en": "lamp"
+        }
+    },
+    {
+        "id": "sofa",
+        "clip_label": "sofa",
+        "translations": {
+            "ru": "диван",
+            "en": "sofa"
+        }
+    },
+    {
+        "id": "pillow",
+        "clip_label": "pillow",
+        "translations": {
+            "ru": "подушка",
+            "en": "pillow"
+        }
+    },
+    {
+        "id": "blanket",
+        "clip_label": "blanket",
+        "translations": {
+            "ru": "одеяло",
+            "en": "blanket"
+        }
+    },
+    {
+        "id": "mirror",
+        "clip_label": "mirror",
+        "translations": {
+            "ru": "зеркало",
+            "en": "mirror"
+        }
+    },
+    {
+        "id": "clock",
+        "clip_label": "clock",
+        "translations": {
+            "ru": "часы",
+            "en": "clock"
+        }
+    },
+    {
+        "id": "keyboard",
+        "clip_label": "keyboard",
+        "translations": {
+            "ru": "клавиатура",
+            "en": "keyboard"
+        }
+    },
+    {
+        "id": "mouse",
+        "clip_label": "mouse",
+        "translations": {
+            "ru": "мышь",
+            "en": "mouse"
+        }
+    },
+    {
+        "id": "monitor",
+        "clip_label": "monitor",
+        "translations": {
+            "ru": "монитор",
+            "en": "monitor"
+        }
+    },
+    {
+        "id": "phone",
+        "clip_label": "phone",
+        "translations": {
+            "ru": "телефон",
+            "en": "phone"
+        }
+    },
+    {
+        "id": "tablet",
+        "clip_label": "tablet",
+        "translations": {
+            "ru": "планшет",
+            "en": "tablet"
+        }
+    },
+    {
+        "id": "camera",
+        "clip_label": "camera",
+        "translations": {
+            "ru": "фотоаппарат",
+            "en": "camera"
+        }
+    },
+    {
+        "id": "television",
+        "clip_label": "television",
+        "translations": {
+            "ru": "телевизор",
+            "en": "television"
+        }
+    },
+    {
+        "id": "headphones",
+        "clip_label": "headphones",
+        "translations": {
+            "ru": "наушники",
+            "en": "headphones"
+        }
+    },
+    {
+        "id": "charger",
+        "clip_label": "charger",
+        "translations": {
+            "ru": "зарядное устройство",
+            "en": "charger"
+        }
+    },
+    {
+        "id": "cup",
+        "clip_label": "cup",
+        "translations": {
+            "ru": "чашка",
+            "en": "cup"
+        }
+    },
+    {
+        "id": "plate",
+        "clip_label": "plate",
+        "translations": {
+            "ru": "тарелка",
+            "en": "plate"
+        }
+    },
+    {
+        "id": "bowl",
+        "clip_label": "bowl",
+        "translations": {
+            "ru": "миска",
+            "en": "bowl"
+        }
+    },
+    {
+        "id": "spoon",
+        "clip_label": "spoon",
+        "translations": {
+            "ru": "ложка",
+            "en": "spoon"
+        }
+    },
+    {
+        "id": "fork",
+        "clip_label": "fork",
+        "translations": {
+            "ru": "вилка",
+            "en": "fork"
+        }
+    },
+    {
+        "id": "knife",
+        "clip_label": "knife",
+        "translations": {
+            "ru": "нож",
+            "en": "knife"
+        }
+    },
+    {
+        "id": "kettle",
+        "clip_label": "kettle",
+        "translations": {
+            "ru": "чайник",
+            "en": "kettle"
+        }
+    },
+    {
+        "id": "microwave",
+        "clip_label": "microwave",
+        "translations": {
+            "ru": "микроволновая печь",
+            "en": "microwave"
+        }
+    },
+    {
+        "id": "refrigerator",
+        "clip_label": "refrigerator",
+        "translations": {
+            "ru": "холодильник",
+            "en": "refrigerator"
+        }
+    },
+    {
+        "id": "apple",
+        "clip_label": "apple",
+        "translations": {
+            "ru": "яблоко",
+            "en": "apple"
+        }
+    },
+    {
+        "id": "banana",
+        "clip_label": "banana",
+        "translations": {
+            "ru": "банан",
+            "en": "banana"
+        }
+    },
+    {
+        "id": "orange",
+        "clip_label": "orange",
+        "translations": {
+            "ru": "апельсин",
+            "en": "orange"
+        }
+    },
+    {
+        "id": "bread",
+        "clip_label": "bread",
+        "translations": {
+            "ru": "хлеб",
+            "en": "bread"
+        }
+    },
+    {
+        "id": "egg",
+        "clip_label": "egg",
+        "translations": {
+            "ru": "яйцо",
+            "en": "egg"
+        }
+    },
+    {
+        "id": "coffee",
+        "clip_label": "coffee",
+        "translations": {
+            "ru": "кофе",
+            "en": "coffee"
+        }
+    },
+    {
+        "id": "tea",
+        "clip_label": "tea",
+        "translations": {
+            "ru": "чай",
+            "en": "tea"
+        }
+    },
+    {
+        "id": "milk",
+        "clip_label": "milk",
+        "translations": {
+            "ru": "молоко",
+            "en": "milk"
+        }
+    },
+    {
+        "id": "pizza",
+        "clip_label": "pizza",
+        "translations": {
+            "ru": "пицца",
+            "en": "pizza"
+        }
+    },
+    {
+        "id": "sandwich",
+        "clip_label": "sandwich",
+        "translations": {
+            "ru": "сэндвич",
+            "en": "sandwich"
+        }
+    },
+    {
+        "id": "bird",
+        "clip_label": "bird",
+        "translations": {
+            "ru": "птица",
+            "en": "bird"
+        }
+    },
+    {
+        "id": "fish",
+        "clip_label": "fish",
+        "translations": {
+            "ru": "рыба",
+            "en": "fish"
+        }
+    },
+    {
+        "id": "horse",
+        "clip_label": "horse",
+        "translations": {
+            "ru": "лошадь",
+            "en": "horse"
+        }
     },
     {
         "id": "bus",
-        "clip_label": "bus"
+        "clip_label": "bus",
+        "translations": {
+            "ru": "автобус",
+            "en": "bus"
+        }
     },
     {
         "id": "train",
-        "clip_label": "train"
+        "clip_label": "train",
+        "translations": {
+            "ru": "поезд",
+            "en": "train"
+        }
     },
     {
         "id": "bicycle",
-        "clip_label": "bicycle"
+        "clip_label": "bicycle",
+        "translations": {
+            "ru": "велосипед",
+            "en": "bicycle"
+        }
     },
     {
         "id": "motorcycle",
-        "clip_label": "motorcycle"
+        "clip_label": "motorcycle",
+        "translations": {
+            "ru": "мотоцикл",
+            "en": "motorcycle"
+        }
     }
 ]

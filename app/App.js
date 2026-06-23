@@ -13,8 +13,11 @@ import * as ImageManipulator from 'expo-image-manipulator'
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import WordsScreen  from "./screens/WordsScreen.js";
 import QuizScreen from "./screens/QuizScreen.js";
-import { getLanguage } from "./services/settings.js";
-import { getWords } from "./services/storage.js";
+import { getLanguage, getAppLanguage } from "./services/settings.js";
+import { 
+  getWords,
+  deleteWord as deleteWordFromStorage,
+} from "./services/storage.js";
 import SettingsScreen from "./screens/SettingsScreen.js";
 
 
@@ -23,6 +26,7 @@ export default function App() {
   const [result, setResult] = useState(null);
   const [screen, setScreen] = useState('home');
   const [language, setLanguage] = useState('ja');
+  const [applanguage, setAppLanguage] = useState('ja');
   const [savedWords, setSavedWords] = useState([]);
 
   const cameraRef = useRef(null);
@@ -33,6 +37,7 @@ export default function App() {
 
   useEffect(() => {
     loadLanguage();
+    loadAppLanguage();
     loadSavedWords();
   }, []);
 
@@ -41,6 +46,12 @@ export default function App() {
       await getLanguage();
 
     setLanguage(savedLanguage);
+  };
+
+  const loadAppLanguage = async () => {
+    const savedAppLanguage = await getAppLanguage();
+
+    setAppLanguage(savedAppLanguage);
   };
 
   const takePhoto = async () => {
@@ -78,7 +89,8 @@ export default function App() {
         name: "photo.jpg",
       });
 
-      formData.append('language', language)
+      formData.append('language', language);
+      formData.append('applanguage', applanguage);
       
       console.log(converted.uri);
 
@@ -138,7 +150,9 @@ export default function App() {
         japanese: result.word,
         romaji: result.romaji,
         translation: result.translation,
+        translations: result.translations,
         language: result.language,
+        applanguage: result.applanguage,
       };
       
       const exists = words.find(
@@ -174,6 +188,20 @@ export default function App() {
     setSavedWords(words);
   }
 
+  const removeSavedWord = async (id) => {
+    try {
+      await deleteWordFromStorage(id);
+  
+      const updatedWords = savedWords.filter(
+        word => word.id !== id
+      );
+  
+      setSavedWords(updatedWords);
+    } catch (error) {
+      console.log('Ошибка удаления слова:', error);
+    }
+  };
+
   const currentLanguageWords = savedWords.filter(
     word => word.language === language
   );
@@ -182,6 +210,8 @@ export default function App() {
     return <WordsScreen
       goBack={() => setScreen('home')}
       savedWords={currentLanguageWords}
+      applanguage={applanguage}
+      onDeleteWord={removeSavedWord}
     />
   }
 
@@ -224,6 +254,8 @@ export default function App() {
         goBack={() => setScreen('home')}
         language={language}
         setLanguage={setLanguage}
+        applanguage={applanguage}
+        setAppLanguage={setAppLanguage}
       />
     )
   }

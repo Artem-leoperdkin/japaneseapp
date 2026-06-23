@@ -5,6 +5,7 @@ import cors from 'cors'
 import multer from 'multer'
 import path from 'path';
 import { getWord } from './data/getWord.js';
+import { getObject } from './data/getObject.js';
 
 const app = express()
 
@@ -55,12 +56,25 @@ app.post(
             console.log('Object:', objectName);
         
             const language = req.body.language || 'ja';
+            const appLanguage = req.body.appLanguage || 'ru';
 
             const word = getWord(objectName, language);
+            const object = getObject(objectName);
 
             if (!word || !word.word) {
                 return res.status(404).json({
-                    error: `Для объекта "${objectName}" нет перевода на выбранный язык`
+                    error: `Для объекта "${objectName}" нет слова на выбранном языке`,
+                });
+            }
+
+            const translation =
+            object?.translations?.[appLanguage] ||
+            object?.translations?.ru ||
+            null;
+
+            if (!translation) {
+                return res.status(404).json({
+                    error: `Для объекта "${objectName}" нет перевода для языка приложения`,
                 });
             }
 
@@ -68,13 +82,16 @@ app.post(
                 answer: JSON.stringify({
                     object: objectName,
                     word: word.word,
-                    romanji: word.romanji || null,
-                    translation: word.translation || null,
+                    romaji: word.romaji || null,
+                    translation,
+                    translations: object.translations,
                     language,
+                    appLanguage,
                 }),
             });
         
         }
+
         catch (error) {
             console.error(error);
         
