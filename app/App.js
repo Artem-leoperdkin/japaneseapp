@@ -350,76 +350,18 @@ export default function App() {
                 source={{ uri: image }}
                 style={styles.previewImage}
               />
-  
-              <TouchableOpacity
-                style={styles.retakeCircleButton}
-                onPress={() => {
-                  setImage(null);
-                  setResult(null);
-                }}
-              >
-                <Text style={styles.retakeCircleIcon}>↻</Text>
-              </TouchableOpacity>
             </View>
-  
-            {!result ? (
+        
+            {!result && (
               <View style={styles.loadingBox}>
                 <Text style={styles.loadingEmoji}>✦</Text>
                 <Text style={styles.loadingText}>
                   Распознаём предмет…
                 </Text>
               </View>
-            ) : (
-              <>
-                <View style={styles.resultBox}>
-                  <Text
-                    style={styles.japanese}
-                    numberOfLines={3}
-                    adjustsFontSizeToFit
-                  >
-                    {result.word}
-                  </Text>
-  
-                  {result.romaji && (
-                    <Text style={styles.romaji}>
-                      {result.romaji}
-                    </Text>
-                  )}
-  
-                  <Text style={styles.translation}>
-                    {result.translation}
-                  </Text>
-                </View>
-  
-                <TouchableOpacity
-                  style={styles.saveButton}
-                  onPress={async () => {
-                    await saveWord();
-                    setShowResultCard(false);
-                    setImage(null);
-                    setResult(null);
-                  }}
-                >
-                  <Text style={styles.saveButtonText}>
-                    Сохранить слово
-                  </Text>
-                </TouchableOpacity>
-  
-                <TouchableOpacity
-                  style={styles.retakeButton}
-                  onPress={() => {
-                    setImage(null);
-                    setResult(null);
-                  }}
-                >
-                  <Text style={styles.retakeButtonText}>
-                    ↻  Сфотографировать ещё раз
-                    </Text>
-              </TouchableOpacity>
-            </>
-          )}
-        </>
-      )}
+            )}
+          </>
+        )}
 
       <TouchableOpacity
         style={styles.quizButton}
@@ -474,7 +416,7 @@ export default function App() {
               }}
             >
               <Text style={styles.retakeModalText}>
-                ↻ Перефоткать
+                ↻ Переделать фото
               </Text>
             </TouchableOpacity>
 
@@ -483,6 +425,8 @@ export default function App() {
               onPress={async () => {
                 await saveWord();
                 setShowResultCard(false);
+                setImage(null);
+                setResult(null);
               }}
             >
               <Text style={styles.saveModalText}>

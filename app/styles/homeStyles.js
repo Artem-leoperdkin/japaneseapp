@@ -410,7 +410,7 @@ const styles = StyleSheet.create({
 
     retakeModalText: {
         color: '#625B77',
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: '700',
     },
 
@@ -436,6 +436,18 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 16,
         fontWeight: '800',
+    },
+
+    analyzingScreen: {
+        minHeight: 420,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    analyzingText: {
+        color: '#625B77',
+        fontSize: 17,
+        fontWeight: '700',
     },
 });
 
