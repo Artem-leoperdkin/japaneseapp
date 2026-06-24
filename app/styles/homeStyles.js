@@ -330,6 +330,113 @@ const styles = StyleSheet.create({
         content: {
         paddingBottom: 26,
     },
+
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(24, 20, 38, 0.68)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 24,
+    },
+
+    wordModalCard: {
+        width: '100%',
+        maxWidth: 380,
+        backgroundColor: '#FFFDFE',
+        borderRadius: 30,
+        padding: 16,
+
+        shadowColor: '#171225',
+        shadowOpacity: 0.32,
+        shadowRadius: 28,
+        shadowOffset: {
+            width: 0,
+            height: 14,
+        },
+        elevation: 12,
+    },
+
+    modalPhotoFrame: {
+        width: '100%',
+        aspectRatio: 1,
+        borderRadius: 20,
+        overflow: 'hidden',
+        backgroundColor: '#EDEAF5',
+    },
+
+    modalPhoto: {
+        width: '100%',
+        height: '100%',
+    },
+
+    modalWord: {
+        marginTop: 18,
+        color: '#2E2A42',
+        fontSize: 38,
+        fontWeight: '800',
+        textAlign: 'center',
+        lineHeight: 44,
+    },
+
+    modalRomaji: {
+        marginTop: 7,
+        color: '#8B849E',
+        fontSize: 17,
+        textAlign: 'center',
+    },
+
+    modalTranslation: {
+        marginTop: 8,
+        color: '#625B77',
+        fontSize: 20,
+        fontWeight: '600',
+        textAlign: 'center',
+    },
+
+    modalButtons: {
+        flexDirection: 'row',
+        gap: 10,
+        marginTop: 22,
+    },
+
+    retakeModalButton: {
+        flex: 1,
+        minHeight: 54,
+        borderRadius: 16,
+        backgroundColor: '#F0EDF7',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    retakeModalText: {
+        color: '#625B77',
+        fontSize: 15,
+        fontWeight: '700',
+    },
+
+    saveModalButton: {
+        flex: 1,
+        minHeight: 54,
+        borderRadius: 16,
+        backgroundColor: '#A99BF7',
+        alignItems: 'center',
+        justifyContent: 'center',
+
+        shadowColor: '#8F80E8',
+        shadowOpacity: 0.3,
+        shadowRadius: 12,
+        shadowOffset: {
+            width: 0,
+            height: 6,
+        },
+        elevation: 5,
+    },
+
+    saveModalText: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: '800',
+    },
 });
 
 export default styles;

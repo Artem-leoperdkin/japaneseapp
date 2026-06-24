@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Modal,
 } from "react-native";
 import styles from "./styles/homeStyles.js";
 
@@ -28,6 +29,7 @@ export default function App() {
   const [language, setLanguage] = useState('ja');
   const [applanguage, setAppLanguage] = useState('ja');
   const [savedWords, setSavedWords] = useState([]);
+  const [showResultCard, setShowResultCard] = useState(false);
 
   const cameraRef = useRef(null);
 
@@ -123,6 +125,8 @@ export default function App() {
       }
 
       setResult(parsed);
+      setShowResultCard(true);
+
       console.log(parsed);
       console.log(data);
   
@@ -389,7 +393,12 @@ export default function App() {
   
                 <TouchableOpacity
                   style={styles.saveButton}
-                  onPress={saveWord}
+                  onPress={async () => {
+                    await saveWord();
+                    setShowResultCard(false);
+                    setImage(null);
+                    setResult(null);
+                  }}
                 >
                   <Text style={styles.saveButtonText}>
                     Сохранить слово
@@ -421,6 +430,69 @@ export default function App() {
         </Text>
       </TouchableOpacity>
     </ScrollView>
+
+    <Modal
+      visible={showResultCard}
+      transparent
+      animationType="fade"
+      onRequestClose={() => setShowResultCard(false)}
+    >
+      <View style={styles.modalOverlay}>
+        <View style={styles.wordModalCard}>
+          <View style={styles.modalPhotoFrame}>
+            <Image
+              source={{ uri: image }}
+              style={styles.modalPhoto}
+            />
+          </View>
+
+          <Text
+            style={styles.modalWord}
+            numberOfLines={3}
+            adjustsFontSizeToFit
+          >
+            {result?.word}
+          </Text>
+
+          {result?.romaji && (
+            <Text style={styles.modalRomaji}>
+              {result.romaji}
+            </Text>
+          )}
+
+          <Text style={styles.modalTranslation}>
+            {result?.translation}
+          </Text>
+
+          <View style={styles.modalButtons}>
+            <TouchableOpacity
+              style={styles.retakeModalButton}
+              onPress={() => {
+                setShowResultCard(false);
+                setImage(null);
+                setResult(null);
+              }}
+            >
+              <Text style={styles.retakeModalText}>
+                ↻ Перефоткать
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.saveModalButton}
+              onPress={async () => {
+                await saveWord();
+                setShowResultCard(false);
+              }}
+            >
+              <Text style={styles.saveModalText}>
+                Сохранить
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </Modal>
   </View>
   );
 }
