@@ -2,20 +2,31 @@ import { useEffect, useState, useRef } from 'react';
 import {
     View,
     Text,
-    Button,
-    StyleSheet,
+    Image,
+    TouchableOpacity,
+    Animated,
+    ScrollView,
 } from 'react-native';
 
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as ImageManipulator from 'expo-image-manipulator';
+
+import styles from '../styles/quizStyles.js';
 
 export default function QuizScreen({ goBack, language, savedWords }) {
     const [currentWord, setCurrentWord] = useState(null);
     const [checkResult, setCheckResult] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [loadError, setLoadError] = useState(null);
+    const [isChecking, setIsChecking] = useState(false);
+    const [photoUri, setPhotoUri] = useState(null);
+
+    const [facing, setFacing] = useState('back');
+    const [flash, setFlash] = useState('off');
 
     const cameraRef = useRef(null);
+
+    const shakeAnimation = useRef(new Animated.Value(0)).current;
 
     const [permission, requestPermission] = useCameraPermissions();
 
@@ -24,7 +35,6 @@ export default function QuizScreen({ goBack, language, savedWords }) {
     }, [language, savedWords]);
 
     const loadRandomWord = async () => {
-
         if (!savedWords || savedWords.length === 0) {
             setLoadError(
                 'Сначала добавь хотя бы одно слово в библиотеку'
@@ -38,11 +48,13 @@ export default function QuizScreen({ goBack, language, savedWords }) {
             setLoadError(null);
             setCheckResult(null);
             setCurrentWord(null);
+            setPhotoUri(null);
+            setIsChecking(false);
 
             const objectIds = savedWords.map(
                 word => word.object
             );
-    
+
             const response = await fetch(
                 `http://192.168.0.111:3000/random-word?language=${language}`,
                 {
@@ -51,27 +63,27 @@ export default function QuizScreen({ goBack, language, savedWords }) {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        objectIds
+                        objectIds,
                     }),
                 }
             );
-    
+
             const data = await response.json();
-    
+
             console.log('RANDOM WORD RESPONSE:', data);
-    
+
             if (!response.ok || data.error) {
                 throw new Error(
                     data.error || 'Сервер не отдал слово'
                 );
             }
-    
+
             if (!data.object || !data.word) {
                 throw new Error(
                     'Сервер вернул слово в неправильном формате'
                 );
             }
-    
+
             setCurrentWord(data);
         } catch (error) {
             console.log('Ошибка загрузки слова:', error);
@@ -83,16 +95,50 @@ export default function QuizScreen({ goBack, language, savedWords }) {
 
     const takePhoto = async () => {
         try {
-            if (!cameraRef.current || !currentWord) return;
+            if (!cameraRef.current || !currentWord || isChecking) {
+                return;
+            }
 
             const photo = await cameraRef.current.takePictureAsync({
                 quality: 0.8,
             });
 
-            checkAnswer(photo.uri);
+            setPhotoUri(photo.uri);
+            setIsChecking(true);
+
+            await checkAnswer(photo.uri);
         } catch (error) {
-            console.log(error);
+            console.log('Ошибка фото:', error);
+            setIsChecking(false);
+            setPhotoUri(null);
         }
+    };
+
+    const shakeWordCard = () => {
+        shakeAnimation.setValue(0);
+    
+        Animated.sequence([
+            Animated.timing(shakeAnimation, {
+                toValue: 1,
+                duration: 70,
+                useNativeDriver: true,
+            }),
+            Animated.timing(shakeAnimation, {
+                toValue: -1,
+                duration: 70,
+                useNativeDriver: true,
+            }),
+            Animated.timing(shakeAnimation, {
+                toValue: 1,
+                duration: 70,
+                useNativeDriver: true,
+            }),
+            Animated.timing(shakeAnimation, {
+                toValue: 0,
+                duration: 70,
+                useNativeDriver: true,
+            }),
+        ]).start();
     };
 
     const checkAnswer = async (imageUri) => {
@@ -127,9 +173,14 @@ export default function QuizScreen({ goBack, language, savedWords }) {
             console.log('ANALYZE RESPONSE:', data);
 
             if (!response.ok || data.error) {
-                console.log('Ошибка распознавания:', data.error);
-
                 setCheckResult('wrong');
+                shakeWordCard();
+
+                setTimeout(() => {
+                    setPhotoUri(null);
+                    setCheckResult(null);
+                }, 1800);
+
                 return;
             }
 
@@ -146,153 +197,208 @@ export default function QuizScreen({ goBack, language, savedWords }) {
                 }, 1200);
             } else {
                 setCheckResult('wrong');
+                shakeWordCard();
+
+                setTimeout(() => {
+                    setPhotoUri(null);
+                    setCheckResult(null);
+                }, 1800);
             }
+
         } catch (error) {
-            console.log(error);
+            console.log('Ошибка проверки:', error);
+            setCheckResult('wrong');
+            shakeWordCard();
+
+            setTimeout(() => {
+                setPhotoUri(null);
+                setCheckResult(null);
+            }, 1800);
+
+        } finally {
+            setIsChecking(false);
         }
     };
 
     if (!permission) {
-        return <View />;
+    return <View />;
     }
 
     if (!permission.granted) {
-        return (
-            <View style={styles.container}>
-                <Text>Нужно разрешение на камеру</Text>
+    return (
+    <View style={styles.permissionContainer}>
+        <Text style={styles.permissionTitle}>
+            Нужен доступ к камере
+        </Text>
 
-                <Button
-                    title="Разрешить"
-                    onPress={requestPermission}
-                />
-            </View>
-        );
+        <Text style={styles.permissionText}>
+            Камера нужна, чтобы проверять слова по предметам вокруг тебя.
+        </Text>
+
+        <TouchableOpacity
+            style={styles.permissionButton}
+            onPress={requestPermission}
+        >
+            <Text style={styles.permissionButtonText}>
+                Разрешить камеру
+            </Text>
+        </TouchableOpacity>
+    </View>
+    );
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Проверка</Text>
+        <ScrollView
+            style={styles.container}
+            contentContainerStyle={styles.content}
+            showsVerticalScrollIndicator={false}
+        >
+            <View style={styles.topBar}>
+                <TouchableOpacity
+                    style={styles.backButton}
+                    onPress={goBack}
+                >
+                    <Text style={styles.backButtonText}>‹</Text>
+                </TouchableOpacity>
 
-            <Button
-                title="Назад"
-                onPress={goBack}
-            />
+                <Text style={styles.title}>Проверка</Text>
 
-            <View style={styles.cameraContainer}>
-                <CameraView
-                    ref={cameraRef}
-                    style={styles.camera}
-                    facing="back"
-                />
+                <View style={styles.topBarSpacer} />
+            </View>
+
+            <View style={styles.cameraFrame}>
+                {photoUri ? (
+                    <Image
+                        source={{ uri: photoUri }}
+                        style={styles.camera}
+                    />
+                ) : (
+                    <CameraView
+                        ref={cameraRef}
+                        style={styles.camera}
+                        facing={facing}
+                        flash={flash}
+                    />
+                )}
             </View>
 
             {isLoading && (
-                <Text style={styles.loading}>
-                    Загружаю слово...
-                </Text>
+                <View style={styles.wordCard}>
+                    <Text style={styles.loadingText}>
+                        Загружаю слово…
+                    </Text>
+                </View>
             )}
 
             {loadError && (
-                <Text style={styles.wrong}>
-                    Ошибка: {loadError}
-                </Text>
+                <View style={styles.errorCard}>
+                    <Text style={styles.errorText}>
+                        {loadError}
+                    </Text>
+                </View>
             )}
 
             {currentWord && !isLoading && (
                 <>
-                    <Text style={styles.japanese}>
-                        {currentWord.word}
-                    </Text>
-
-                    {currentWord.romaji && (
-                        <Text style={styles.
-                            romaji}>
-                            {currentWord.romaji}
+                    <Animated.View
+                        style={[
+                            styles.wordCard,
+                            checkResult === 'correct' &&
+                                styles.wordCardCorrect,
+                            checkResult === 'wrong' &&
+                                styles.wordCardWrong,
+                            {
+                                transform: [
+                                    {
+                                        translateX:
+                                            shakeAnimation.interpolate({
+                                                inputRange: [-1, 0, 1],
+                                                outputRange: [-10, 0, 10],
+                                            }),
+                                    },
+                                ],
+                            },
+                        ]}
+                    >
+                        <Text style={styles.word}>
+                            {currentWord.word}
                         </Text>
-                    )}
 
-                    <Button
-                        title="Сфотографировать"
-                        onPress={takePhoto}
-                    />
+                        {currentWord.romaji && (
+                            <Text style={styles.romaji}>
+                                {currentWord.romaji}
+                            </Text>
+                        )}
 
+                        <Text style={styles.wordHint}>
+                            Найди этот предмет и сфотографируй его
+                        </Text>
+                    </Animated.View>
+
+                    <View style={styles.controls}>
+                        <TouchableOpacity
+                            style={styles.sideButton}
+                            onPress={() =>
+                                setFlash(current =>
+                                    current === 'off' ? 'on' : 'off'
+                                )
+                            }
+                        >
+                            <Text
+                                style={[
+                                    styles.sideButtonText,
+                                    flash === 'on' &&
+                                        styles.flashActive,
+                                ]}
+                            >
+                                ⚡︎
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={[
+                                styles.captureButton,
+                                isChecking &&
+                                    styles.captureButtonDisabled,
+                            ]}
+                            onPress={takePhoto}
+                            disabled={isChecking}
+                        >
+                            <View style={styles.captureInner} />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={styles.sideButton}
+                            onPress={() =>
+                                setFacing(current =>
+                                    current === 'back'
+                                        ? 'front'
+                                        : 'back'
+                                )
+                            }
+                        >
+                            <Text style={styles.sideButtonText}>
+                                ↻
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                     {checkResult === 'correct' && (
-                        <Text style={styles.correct}>
-                            ✅ Верно
-                        </Text>
+                        <View style={styles.correctBadge}>
+                            <Text style={styles.correctText}>
+                                ✓ Верно
+                            </Text>
+                        </View>
                     )}
 
                     {checkResult === 'wrong' && (
-                        <Text style={styles.wrong}>
-                            ❌ Неверно
-                        </Text>
+                        <View style={styles.wrongBadge}>
+                            <Text style={styles.wrongText}>
+                                Попробуй ещё раз
+                            </Text>
+                        </View>
                     )}
                 </>
             )}
-        </View>
+        </ScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-        backgroundColor: '#f5f5f5',
-    },
-
-    title: {
-        marginTop: 55,
-        fontSize: 28,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-
-    cameraContainer: {
-        width: '100%',
-        height: 280,
-        overflow: 'hidden',
-        borderRadius: 16,
-        marginTop: 20,
-        marginBottom: 20,
-    },
-
-    camera: {
-        flex: 1,
-    },
-
-    japanese: {
-        textAlign: 'center',
-        fontSize: 36,
-        fontWeight: 'bold',
-        marginTop: 8,
-    },
-
-    romaji: {
-        textAlign: 'center',
-        fontSize: 20,
-        color: '#666',
-        marginBottom: 15,
-    },
-
-    loading: {
-        textAlign: 'center',
-        fontSize: 18,
-        marginTop: 20,
-    },
-
-    correct: {
-        textAlign: 'center',
-        marginTop: 16,
-        fontSize: 22,
-        color: 'green',
-        fontWeight: 'bold',
-    },
-
-    wrong: {
-        textAlign: 'center',
-        marginTop: 16,
-        fontSize: 22,
-        color: 'red',
-        fontWeight: 'bold',
-    },
-});
