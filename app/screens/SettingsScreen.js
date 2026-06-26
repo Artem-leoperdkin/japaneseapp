@@ -1,9 +1,4 @@
-import {
-    View,
-    Text,
-    Button,
-    StyleSheet,
-} from 'react-native';
+import styles from '../styles/settingsStyles.js';
 
 import {
     saveLanguage,
@@ -27,65 +22,87 @@ export default function SettingsScreen({
         setAppLanguage(lang);
     };
 
-return (
-    <View style={styles.container}>
-        <Text style={styles.title}>Настройки</Text>
+    return (
+        <View style={styles.container}>
 
-        <Text style={styles.sectionTitle}>
-            Язык обучения
-        </Text>
+            <View style={styles.topBar}>
+                <TouchableOpacity
+                    style={styles.backButton}
+                    onPress={goBack}
+                >
+                    <Text style={styles.backButtonText}>
+                        ‹
+                    </Text>
+                </TouchableOpacity>
 
-        <Button
-            title={
-                language === 'ja'
-                ? '✓ Японский'
-                : 'Японский'
-            }
-            onPress={() => selectLearningLanguage('ja')}
-        />
+                <Text style={styles.title}>
+                    Настройки
+                </Text>
 
-        <View style={styles.buttonSpace} />
+                <View style={styles.topBarSpacer} />
+            </View>
 
-        <Button
-            title={
-                language === 'it'
-                ? '✓ Итальянский'
-                : 'Итальянский'
-            }
-            onPress={() => selectLearningLanguage('it')}
-        />
+            <TouchableOpacity
+                style={styles.settingCard}
+                onPress={() => {}}
+            >
+                <View>
+                    <Text style={styles.cardTitle}>
+                        🌏 Язык обучения
+                    </Text>
 
-        <Text style={styles.sectionTitle}>
-            Язык приложения
-        </Text>
+                    <Text style={styles.cardValue}>
+                        {language === 'ja'
+                            ? 'Японский'
+                            : 'Итальянский'}
+                    </Text>
+                </View>
 
-        <Button
-            title={
-                appLanguage === 'ru'
-                ? '✓ Русский'
-                : 'Русский'
-            }
-            onPress={() => selectAppLanguage('ru')}
-        />
+                <Text style={styles.arrow}>
+                    ›
+                </Text>
+            </TouchableOpacity>
 
-        <View style={styles.buttonSpace} />
+            <TouchableOpacity
+                style={styles.settingCard}
+                onPress={() => {}}
+            >
+                <View>
+                    <Text style={styles.cardTitle}>
+                        📱 Язык приложения
+                    </Text>
 
-        <Button
-            title={
-                appLanguage === 'en'
-                ? '✓ English'
-                : 'English'
-            }
-            onPress={() => selectAppLanguage('en')}
-        />
+                    <Text style={styles.cardValue}>
+                        {appLanguage === 'ru'
+                            ? 'Русский'
+                            : 'English'}
+                    </Text>
+                </View>
 
-        <View style={styles.backSpace} />
+                <Text style={styles.arrow}>
+                    ›
+                </Text>
+            </TouchableOpacity>
 
-        <Button
-            title="Назад"
-            onPress={goBack}
-        />
-    </View>
+            <TouchableOpacity
+                style={styles.settingCard}
+            >
+                <View>
+                    <Text style={styles.cardTitle}>
+                        ℹ️ О приложении
+                    </Text>
+
+                    <Text style={styles.cardValue}>
+                        Version 0.1 Alpha
+                    </Text>
+                </View>
+
+                <Text style={styles.arrow}>
+                    ›
+                </Text>
+            </TouchableOpacity>
+
+        </View>
     );
 }
 
