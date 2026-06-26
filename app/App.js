@@ -27,7 +27,7 @@ export default function App() {
   const [result, setResult] = useState(null);
   const [screen, setScreen] = useState('home');
   const [language, setLanguage] = useState('ja');
-  const [applanguage, setAppLanguage] = useState('ja');
+  const [appLanguage, setAppLanguage] = useState('en');
   const [savedWords, setSavedWords] = useState([]);
   const [showResultCard, setShowResultCard] = useState(false);
 
@@ -214,7 +214,7 @@ export default function App() {
     return <WordsScreen
       goBack={() => setScreen('home')}
       savedWords={currentLanguageWords}
-      applanguage={applanguage}
+      applanguage={appLanguage}
       onDeleteWord={removeSavedWord}
     />
   }
@@ -258,7 +258,7 @@ export default function App() {
         goBack={() => setScreen('home')}
         language={language}
         setLanguage={setLanguage}
-        applanguage={applanguage}
+        appLanguage={appLanguage}
         setAppLanguage={setAppLanguage}
       />
     )

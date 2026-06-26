@@ -1,4 +1,14 @@
-import styles from '../styles/settingsStyles.js';
+import { useState } from 'react';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+} from 'react-native';
+
+import styles from '../styles/settingsStyles';
+
+import { Icons } from '../styles/icons';
+import { strings } from '../translations/strings';
 
 import {
     saveLanguage,
@@ -12,14 +22,24 @@ export default function SettingsScreen({
     appLanguage,
     setAppLanguage,
 }) {
+    const [showLearningLanguages, setShowLearningLanguages] =
+        useState(false);
+
+    const [showAppLanguages, setShowAppLanguages] =
+        useState(false);
+
+    const t = strings[appLanguage] || strings.ru;
+
     const selectLearningLanguage = async (lang) => {
         await saveLanguage(lang);
         setLanguage(lang);
+        setShowLearningLanguages(false);
     };
 
     const selectAppLanguage = async (lang) => {
         await saveAppLanguage(lang);
         setAppLanguage(lang);
+        setShowAppLanguages(false);
     };
 
     return (
@@ -31,12 +51,12 @@ export default function SettingsScreen({
                     onPress={goBack}
                 >
                     <Text style={styles.backButtonText}>
-                        ‹
+                        {Icons.back}
                     </Text>
                 </TouchableOpacity>
 
                 <Text style={styles.title}>
-                    Настройки
+                    {t.settings}
                 </Text>
 
                 <View style={styles.topBarSpacer} />
@@ -44,52 +64,115 @@ export default function SettingsScreen({
 
             <TouchableOpacity
                 style={styles.settingCard}
-                onPress={() => {}}
+                onPress={() =>
+                    setShowLearningLanguages(
+                        !showLearningLanguages
+                    )
+                }
             >
-                <View>
+                <View style={styles.cardLeft}>
                     <Text style={styles.cardTitle}>
-                        🌏 Язык обучения
+                        {Icons.language} {t.learningLanguage}
                     </Text>
 
                     <Text style={styles.cardValue}>
                         {language === 'ja'
-                            ? 'Японский'
-                            : 'Итальянский'}
+                            ? t.japanese
+                            : t.italian}
                     </Text>
                 </View>
 
                 <Text style={styles.arrow}>
-                    ›
+                    {showLearningLanguages ? '⌃' : '›'}
                 </Text>
             </TouchableOpacity>
 
+            {showLearningLanguages && (
+                <View style={styles.optionsCard}>
+
+                    <TouchableOpacity
+                        style={styles.optionButton}
+                        onPress={() =>
+                            selectLearningLanguage('ja')
+                        }
+                    >
+                        <Text style={styles.optionText}>
+                            🇯🇵 {t.japanese}
+                        </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.optionButton}
+                        onPress={() =>
+                            selectLearningLanguage('it')
+                        }
+                    >
+                        <Text style={styles.optionText}>
+                            🇮🇹 {t.italian}
+                        </Text>
+                    </TouchableOpacity>
+
+                </View>
+            )}
+
             <TouchableOpacity
                 style={styles.settingCard}
-                onPress={() => {}}
+                onPress={() =>
+                    setShowAppLanguages(
+                        !showAppLanguages
+                    )
+                }
             >
-                <View>
+                <View style={styles.cardLeft}>
                     <Text style={styles.cardTitle}>
-                        📱 Язык приложения
+                        {Icons.phone} {t.appLanguage}
                     </Text>
 
                     <Text style={styles.cardValue}>
                         {appLanguage === 'ru'
-                            ? 'Русский'
-                            : 'English'}
+                            ? t.russian
+                            : t.english}
                     </Text>
                 </View>
 
                 <Text style={styles.arrow}>
-                    ›
-                </Text>
+                    {showAppLanguages ? '⌃' : '›'}
+                    </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-                style={styles.settingCard}
-            >
-                <View>
+            {showAppLanguages && (
+                <View style={styles.optionsCard}>
+
+                    <TouchableOpacity
+                        style={styles.optionButton}
+                        onPress={() =>
+                            selectAppLanguage('ru')
+                        }
+                    >
+                        <Text style={styles.optionText}>
+                            🇷🇺 {t.russian}
+                        </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.optionButton}
+                        onPress={() =>
+                            selectAppLanguage('en')
+                        }
+                    >
+                        <Text style={styles.optionText}>
+                            🇬🇧 {t.english}
+                        </Text>
+                    </TouchableOpacity>
+
+                </View>
+            )}
+
+            <View style={styles.settingCard}>
+
+                <View style={styles.cardLeft}>
                     <Text style={styles.cardTitle}>
-                        ℹ️ О приложении
+                        {Icons.info} About
                     </Text>
 
                     <Text style={styles.cardValue}>
@@ -97,43 +180,8 @@ export default function SettingsScreen({
                     </Text>
                 </View>
 
-                <Text style={styles.arrow}>
-                    ›
-                </Text>
-            </TouchableOpacity>
+            </View>
 
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 24,
-        justifyContent: 'center',
-        backgroundColor: '#F8F7FC',
-    },
-
-    title: {
-        fontSize: 30,
-        fontWeight: '800',
-        color: '#2D2A3A',
-        marginBottom: 32,
-    },
-
-    sectionTitle: {
-        fontSize: 18,
-        fontWeight: '700',
-        color: '#4B465A',
-        marginTop: 24,
-        marginBottom: 12,
-    },
-
-    buttonSpace: {
-        height: 10,
-    },
-
-    backSpace: {
-        height: 32,
-    },
-});

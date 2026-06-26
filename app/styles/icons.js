@@ -1,0 +1,16 @@
+export const Icons = {
+    back: '‹',
+    settings: '⚙️',
+    library: '📚',
+    language: '🌏',
+    phone: '📱',
+    flash: '⚡︎',
+    rotate: '↻',
+    camera: '📷',
+    save: '✓',
+    retry: '↺',
+    success: '✓',
+    error: '✕',
+    info: 'ℹ️',
+    profile: '👤',
+};
