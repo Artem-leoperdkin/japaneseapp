@@ -92,7 +92,7 @@ export default function App() {
       });
 
       formData.append('language', language);
-      formData.append('applanguage', applanguage);
+      formData.append('applanguage', appLanguage);
       
       console.log(converted.uri);
 

@@ -148,6 +148,114 @@ const styles = StyleSheet.create({
         fontSize: Font.body,
         fontWeight: '600',
     },
+
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        backgroundColor: 'rgba(0,0,0,0.28)',
+    },
+    
+    modalSheet: {
+        backgroundColor: '#FFFFFF',
+        borderTopLeftRadius: 28,
+        borderTopRightRadius: 28,
+        padding: 22,
+        paddingBottom: 34,
+    },
+    
+    modalTitle: {
+        fontSize: 22,
+        fontWeight: '800',
+        color: '#2D2A3A',
+        marginBottom: 18,
+        textAlign: 'center',
+    },
+    
+    modalOption: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    
+        paddingVertical: 18,
+    
+        borderBottomWidth: 1,
+        borderBottomColor: '#EFEAF8',
+    },
+    
+    modalOptionText: {
+        fontSize: 18,
+        color: '#2D2A3A',
+    },
+    
+    check: {
+        fontSize: 20,
+        color: '#A99BF7',
+        fontWeight: '800',
+    },
+    
+    cancelButton: {
+        marginTop: 18,
+        backgroundColor: '#F5F2FC',
+        borderRadius: 16,
+        paddingVertical: 16,
+    },
+    
+    cancelText: {
+        textAlign: 'center',
+        fontSize: 17,
+        fontWeight: '700',
+        color: '#625B77',
+    },
+
+    popupCard: {
+        marginTop: -6,
+        marginBottom: 16,
+    
+        backgroundColor: '#FFFFFF',
+        borderRadius: 22,
+    
+        borderWidth: 1,
+        borderColor: '#E8E5F0',
+    
+        overflow: 'hidden',
+    
+        shadowColor: '#5C5670',
+        shadowOpacity: 0.10,
+        shadowRadius: 14,
+        shadowOffset: {
+            width: 0,
+            height: 8,
+        },
+        elevation: 4,
+    },
+    
+    popupItem: {
+        height: 58,
+    
+        paddingHorizontal: 22,
+    
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    
+    popupText: {
+        color: '#2D2A3A',
+        fontSize: 17,
+        fontWeight: '600',
+    },
+    
+    check: {
+        color: '#A99BF7',
+        fontSize: 22,
+        fontWeight: '800',
+    },
+    
+    popupDivider: {
+        height: 1,
+        backgroundColor: '#ECE8F3',
+        marginLeft: 22,
+    },
 });
 
 export default styles;

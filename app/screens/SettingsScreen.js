@@ -88,30 +88,40 @@ export default function SettingsScreen({
             </TouchableOpacity>
 
             {showLearningLanguages && (
-                <View style={styles.optionsCard}>
+                <View style={styles.popupCard}>
 
                     <TouchableOpacity
-                        style={styles.optionButton}
-                        onPress={() =>
-                            selectLearningLanguage('ja')
-                        }
+                        style={styles.popupItem}
+                        onPress={() => selectLearningLanguage('ja')}
                     >
-                        <Text style={styles.optionText}>
-                            🇯🇵 {t.japanese}
+                        <Text style={styles.popupText}>
+                            {t.japanese}
                         </Text>
+            
+                        {language === 'ja' && (
+                            <Text style={styles.check}>
+                                ✓
+                            </Text>
+                        )}
                     </TouchableOpacity>
-
+            
+                    <View style={styles.popupDivider} />
+            
                     <TouchableOpacity
-                        style={styles.optionButton}
-                        onPress={() =>
-                            selectLearningLanguage('it')
-                        }
+                        style={styles.popupItem}
+                        onPress={() => selectLearningLanguage('it')}
                     >
-                        <Text style={styles.optionText}>
-                            🇮🇹 {t.italian}
+                        <Text style={styles.popupText}>
+                            {t.italian}
                         </Text>
+            
+                        {language === 'it' && (
+                            <Text style={styles.check}>
+                                ✓
+                            </Text>
+                        )}
                     </TouchableOpacity>
-
+            
                 </View>
             )}
 
@@ -141,30 +151,40 @@ export default function SettingsScreen({
             </TouchableOpacity>
 
             {showAppLanguages && (
-                <View style={styles.optionsCard}>
+                <View style={styles.popupCard}>
 
                     <TouchableOpacity
-                        style={styles.optionButton}
-                        onPress={() =>
-                            selectAppLanguage('ru')
-                        }
+                        style={styles.popupItem}
+                        onPress={() => selectAppLanguage('ru')}
                     >
-                        <Text style={styles.optionText}>
+                        <Text style={styles.popupText}>
                             🇷🇺 {t.russian}
                         </Text>
+            
+                        {appLanguage === 'ru' && (
+                            <Text style={styles.check}>
+                                ✓
+                            </Text>
+                        )}
                     </TouchableOpacity>
-
+            
+                    <View style={styles.popupDivider} />
+            
                     <TouchableOpacity
-                        style={styles.optionButton}
-                        onPress={() =>
-                            selectAppLanguage('en')
-                        }
+                        style={styles.popupItem}
+                        onPress={() => selectAppLanguage('en')}
                     >
-                        <Text style={styles.optionText}>
+                        <Text style={styles.popupText}>
                             🇬🇧 {t.english}
                         </Text>
+            
+                        {appLanguage === 'en' && (
+                            <Text style={styles.check}>
+                                ✓
+                            </Text>
+                        )}
                     </TouchableOpacity>
-
+            
                 </View>
             )}
 

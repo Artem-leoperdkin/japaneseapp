@@ -329,11 +329,11 @@ export default function QuizScreen({ goBack, language, savedWords }) {
                                 {currentWord.romaji}
                             </Text>
                         )}
-
-                        <Text style={styles.wordHint}>
-                            Найди этот предмет и сфотографируй его
-                        </Text>
                     </Animated.View>
+                    
+                    <Text style={styles.wordHint}>
+                            Найди этот предмет и сфотографируй его
+                    </Text>
 
                     <View style={styles.controls}>
                         <TouchableOpacity
