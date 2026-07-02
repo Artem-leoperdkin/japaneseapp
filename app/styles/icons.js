@@ -1,6 +1,6 @@
 export const Icons = {
     back: '‹',
-    settings: '⚙️',
+    settings: '⚙︎',
     library: '📚',
     language: '🌏',
     phone: '📱',

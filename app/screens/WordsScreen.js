@@ -8,6 +8,7 @@ import {
     Pressable,
     Alert,
 } from 'react-native';
+import { strings } from '../translations/strings.js';
 
 import WordCard from '../components/WordCard';
 
@@ -18,6 +19,8 @@ export default function WordsScreen({
     onDeleteWord,
 }) {
     const [words, setWords] = useState(savedWords || []);
+
+    const t = strings[appLanguage] || strings.ru;
 
     useEffect(() => {
         setWords(savedWords || []);

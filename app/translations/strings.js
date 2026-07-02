@@ -7,11 +7,8 @@ export const strings = {
         myWords: 'Мои слова',
         quiz: 'Проверка',
 
-        choosePhoto: 'Выбрать фото',
-        analyze: 'Определить объект',
-
         save: 'Сохранить',
-        retake: 'Заново',
+        retake: 'Переделать фото',
 
         loading: 'Загрузка...',
         analyzing: 'Распознаём объект...',
@@ -24,6 +21,8 @@ export const strings = {
         photoError:
             'Не удалось распознать фото. Попробуйте другое.',
 
+        start: 'Сфотографируй предмет, чтобы добавить слово',
+
         // Проверка
 
         correct: 'Верно',
@@ -34,6 +33,7 @@ export const strings = {
         permission:
             'Нужно разрешение на использование камеры',
         allow: 'Разрешить',
+        check: 'Проверить себя',
 
         // Библиотека
 
@@ -57,6 +57,17 @@ export const strings = {
         profile: 'Профиль',
         statistics: 'Статистика',
         achievements: 'Достижения',
+
+        permissionTitle: 'Нужен доступ к камере',
+
+        permissionDescription:
+            'Камера нужна, чтобы проверять слова по предметам вокруг тебя.',
+
+        serverWordError:
+            'Сервер не смог подобрать слово.',
+
+        serverFormatError:
+            'Сервер вернул неверный формат данных.',
     },
 
     en: {
@@ -85,6 +96,8 @@ export const strings = {
         photoError:
             'Could not recognize the photo. Try another one.',
 
+        start: 'Take photo of the object to add word',
+
         correct: 'Correct',
         wrong: 'Try again',
         loadingWord: 'Loading word...',
@@ -93,6 +106,7 @@ export const strings = {
         permission:
             'Camera permission is required',
         allow: 'Allow',
+        check: 'Check yourself',
 
         library: 'My Words',
         totalWords: 'Total words',
@@ -112,5 +126,14 @@ export const strings = {
         profile: 'Profile',
         statistics: 'Statistics',
         achievements: 'Achievements',
+
+        permissionTitle: 'Camera access required',
+        permissionDescription:
+            'Camera is used to check objects around you.',
+
+        serverWordError:
+            'Server could not provide a word.',
+        serverFormatError:
+            'Server returned an invalid response.',
     },
 };

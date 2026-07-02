@@ -8,12 +8,15 @@ import {
     ScrollView,
 } from 'react-native';
 
+import { strings } from '../translations/strings.js';
+import { Icons } from '../styles/icons.js';
+
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as ImageManipulator from 'expo-image-manipulator';
 
 import styles from '../styles/quizStyles.js';
 
-export default function QuizScreen({ goBack, language, savedWords }) {
+export default function QuizScreen({ goBack, language, savedWords, appLanguage }) {
     const [currentWord, setCurrentWord] = useState(null);
     const [checkResult, setCheckResult] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -30,15 +33,15 @@ export default function QuizScreen({ goBack, language, savedWords }) {
 
     const [permission, requestPermission] = useCameraPermissions();
 
+    const t = strings[appLanguage] || strings.ru;
+
     useEffect(() => {
         loadRandomWord();
     }, [language, savedWords]);
 
     const loadRandomWord = async () => {
         if (!savedWords || savedWords.length === 0) {
-            setLoadError(
-                'Сначала добавь хотя бы одно слово в библиотеку'
-            );
+            setLoadError(t.noWords);
             setIsLoading(false);
             return;
         }
@@ -56,7 +59,7 @@ export default function QuizScreen({ goBack, language, savedWords }) {
             );
 
             const response = await fetch(
-                `http://192.168.0.111:3000/random-word?language=${language}`,
+                `http://192.168.10.198:3000/random-word?language=${language}`,
                 {
                     method: 'POST',
                     headers: {
@@ -74,7 +77,7 @@ export default function QuizScreen({ goBack, language, savedWords }) {
 
             if (!response.ok || data.error) {
                 throw new Error(
-                    data.error || 'Сервер не отдал слово'
+                    data.error || t.serverWordError
                 );
             }
 
@@ -161,7 +164,7 @@ export default function QuizScreen({ goBack, language, savedWords }) {
             });
 
             const response = await fetch(
-                'http://192.168.0.111:3000/analyze',
+                'http://192.168.10.198:3000/analyze',
                 {
                     method: 'POST',
                     body: formData,
@@ -228,11 +231,11 @@ export default function QuizScreen({ goBack, language, savedWords }) {
     return (
     <View style={styles.permissionContainer}>
         <Text style={styles.permissionTitle}>
-            Нужен доступ к камере
+            {t.permissionTitle}
         </Text>
 
         <Text style={styles.permissionText}>
-            Камера нужна, чтобы проверять слова по предметам вокруг тебя.
+            {t.permissionDescription}
         </Text>
 
         <TouchableOpacity
@@ -240,7 +243,7 @@ export default function QuizScreen({ goBack, language, savedWords }) {
             onPress={requestPermission}
         >
             <Text style={styles.permissionButtonText}>
-                Разрешить камеру
+                {t.alllow}
             </Text>
         </TouchableOpacity>
     </View>
@@ -258,10 +261,14 @@ export default function QuizScreen({ goBack, language, savedWords }) {
                     style={styles.backButton}
                     onPress={goBack}
                 >
-                    <Text style={styles.backButtonText}>‹</Text>
+                    <Text style={styles.backButtonText}>
+                        {Icons.back}
+                    </Text>
                 </TouchableOpacity>
 
-                <Text style={styles.title}>Проверка</Text>
+                <Text style={styles.title}>
+                    {t.quiz}
+                </Text>
 
                 <View style={styles.topBarSpacer} />
             </View>
@@ -285,7 +292,7 @@ export default function QuizScreen({ goBack, language, savedWords }) {
             {isLoading && (
                 <View style={styles.wordCard}>
                     <Text style={styles.loadingText}>
-                        Загружаю слово…
+                        {t.loadingWord}
                     </Text>
                 </View>
             )}
@@ -332,7 +339,7 @@ export default function QuizScreen({ goBack, language, savedWords }) {
                     </Animated.View>
                     
                     <Text style={styles.wordHint}>
-                            Найди этот предмет и сфотографируй его
+                            {t.objectHint}
                     </Text>
 
                     <View style={styles.controls}>
@@ -351,7 +358,7 @@ export default function QuizScreen({ goBack, language, savedWords }) {
                                         styles.flashActive,
                                 ]}
                             >
-                                ⚡︎
+                                {Icons.flash}
                             </Text>
                         </TouchableOpacity>
 
@@ -378,14 +385,14 @@ export default function QuizScreen({ goBack, language, savedWords }) {
                             }
                         >
                             <Text style={styles.sideButtonText}>
-                                ↻
+                                {Icons.rotate}
                             </Text>
                         </TouchableOpacity>
                     </View>
                     {checkResult === 'correct' && (
                         <View style={styles.correctBadge}>
                             <Text style={styles.correctText}>
-                                ✓ Верно
+                                {Icons.success} {t.correct}
                             </Text>
                         </View>
                     )}
@@ -393,7 +400,7 @@ export default function QuizScreen({ goBack, language, savedWords }) {
                     {checkResult === 'wrong' && (
                         <View style={styles.wrongBadge}>
                             <Text style={styles.wrongText}>
-                                Попробуй ещё раз
+                                {t.wrong}
                             </Text>
                         </View>
                     )}

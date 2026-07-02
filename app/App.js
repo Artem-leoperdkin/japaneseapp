@@ -7,7 +7,10 @@ import {
   ScrollView,
   Modal,
 } from "react-native";
+
 import styles from "./styles/homeStyles.js";
+import { strings } from "./translations/strings.js";
+import { Icons } from "./styles/icons.js";
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as ImageManipulator from 'expo-image-manipulator'
@@ -36,6 +39,8 @@ export default function App() {
   const [permission, requestPermission] = useCameraPermissions();
   const [facing, setFacing] = useState('back');
   const [flash, setFlash] = useState('off');
+
+  const t = strings[appLanguage] || strings.ru;
 
   useEffect(() => {
     loadLanguage();
@@ -92,12 +97,16 @@ export default function App() {
       });
 
       formData.append('language', language);
-      formData.append('applanguage', appLanguage);
+      formData.append('appLanguage', appLanguage);
       
       console.log(converted.uri);
 
+      console.log('Sending request...');
+      console.log('Lang:', language);
+      console.log('App lang:', appLanguage);
+
       const response = await fetch(
-        "http://192.168.0.111:3000/analyze",
+        "http://192.168.10.198:3000/analyze",
         {
           method: "POST",
           body: formData,
@@ -156,7 +165,7 @@ export default function App() {
         translation: result.translation,
         translations: result.translations,
         language: result.language,
-        applanguage: result.applanguage,
+        appLanguage: result.appLanguage,
       };
       
       const exists = words.find(
@@ -164,7 +173,7 @@ export default function App() {
       );
       
       if (exists) {
-        alert('Это слово уже сохранено');
+        alert(t.alreadySaved);
         return;
       }
 
@@ -177,7 +186,7 @@ export default function App() {
 
       setSavedWords(words);
   
-      alert('Карточка сохранена');
+      alert(t.saved);
 
       setImage(null);
       setResult(null);
@@ -214,7 +223,7 @@ export default function App() {
     return <WordsScreen
       goBack={() => setScreen('home')}
       savedWords={currentLanguageWords}
-      applanguage={appLanguage}
+      appLanguage={appLanguage}
       onDeleteWord={removeSavedWord}
     />
   }
@@ -225,6 +234,7 @@ export default function App() {
         goBack={() => setScreen('home')}
         language={language}
         savedWords={currentLanguageWords}
+        appLanguage={appLanguage}
       />
     )
   }
@@ -237,7 +247,7 @@ export default function App() {
     return (
       <View style={styles.permissionContainer}>
         <Text style={styles.permissionText}>
-          Разреши доступ к камере, чтобы добавлять слова
+          {t.permission}
         </Text>
   
         <TouchableOpacity
@@ -245,7 +255,7 @@ export default function App() {
           onPress={requestPermission}
         >
           <Text style={styles.permissionButtonText}>
-            Разрешить камеру
+            {t.allow}
           </Text>
         </TouchableOpacity>
       </View>
@@ -267,21 +277,27 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
-        <Text style={styles.logo}>LingoLens</Text>
+        <Text style={styles.logo}>
+          {t.appTitle}
+        </Text>
   
         <View style={styles.topActions}>
           <TouchableOpacity
             style={styles.topIconButton}
             onPress={() => setScreen('settings')}
           >
-            <Text style={styles.topIcon}>⚙︎</Text>
+            <Text style={styles.topIcon}>
+              {Icons.settings}
+            </Text>
           </TouchableOpacity>
   
           <TouchableOpacity
             style={styles.topIconButton}
             onPress={() => setScreen('words')}
           >
-            <Text style={styles.topIcon}>▦</Text>
+            <Text style={styles.topIcon}>
+              {Icons.library}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -302,7 +318,7 @@ export default function App() {
             </View>
   
             <Text style={styles.hint}>
-              Сфотографируй предмет, чтобы добавить слово
+              {t.start}
             </Text>
   
             <View style={styles.controls}>
@@ -320,7 +336,7 @@ export default function App() {
                     flash === 'on' && styles.flashActive,
                   ]}
                 >
-                  ⚡︎
+                  {Icons.flash}
                 </Text>
               </TouchableOpacity>
   
@@ -339,7 +355,7 @@ export default function App() {
                   )
                 }
               >
-                <Text style={styles.sideButtonText}>↻</Text>
+                <Text style={styles.sideButtonText}>{Icons.rotate}</Text>
               </TouchableOpacity>
             </View>
           </>
@@ -356,7 +372,7 @@ export default function App() {
               <View style={styles.loadingBox}>
                 <Text style={styles.loadingEmoji}>✦</Text>
                 <Text style={styles.loadingText}>
-                  Распознаём предмет…
+                  {t.analyzing}
                 </Text>
               </View>
             )}
@@ -368,7 +384,7 @@ export default function App() {
         onPress={() => setScreen('quiz')}
       >
         <Text style={styles.quizButtonText}>
-          Проверить себя
+          {t.check}
         </Text>
       </TouchableOpacity>
     </ScrollView>
@@ -416,7 +432,7 @@ export default function App() {
               }}
             >
               <Text style={styles.retakeModalText}>
-                ↻ Переделать фото
+                ↻ {t.retake}
               </Text>
             </TouchableOpacity>
 
@@ -430,7 +446,7 @@ export default function App() {
               }}
             >
               <Text style={styles.saveModalText}>
-                Сохранить
+                {t.save}
               </Text>
             </TouchableOpacity>
           </View>
