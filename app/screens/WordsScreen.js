@@ -79,14 +79,13 @@ export default function WordsScreen({
     
                 <Text style={styles.title}>
                     {t.library}
+                    <Text style={styles.counter}>
+                        {' '}: {words.length}
+                    </Text>
                 </Text>
     
                 <View style={styles.topBarSpacer} />
             </View>
-    
-            <Text style={styles.counter}>
-                {t.wordsCount}: {words.length}
-            </Text>
     
             <FlatList
                 data={words}

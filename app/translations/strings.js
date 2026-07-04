@@ -40,6 +40,7 @@ export const strings = {
         library: 'Мои слова',
         cancel: 'Отмена',
         back: 'Назад',
+        delete: 'Удалить',
         deleteTitle: 'Удаление',
         deleteQuestion: 'Удалить слово',
         deleteConfirm: 'Удалить слово "{word}"?',
@@ -117,7 +118,15 @@ export const strings = {
         totalWords: 'Total words',
         delete: 'Delete',
         cancel: 'Cancel',
-        deleteQuestion: 'Delete this word?',
+        back: 'Back',
+        deleteTitle: 'Delete',
+        deleteQuestion: 'Delete word',
+        deleteConfirm: 'Delete "{word}"?',
+        noWordsTitle: 'No words yet',
+        noWordsDescription:
+            'Take a photo and save your first word.',
+
+        wordsCount: 'Words',
 
         learningLanguage:
             'Learning Language',

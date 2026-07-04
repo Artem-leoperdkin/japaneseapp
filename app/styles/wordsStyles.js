@@ -1,46 +1,59 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
+import {
+    Colors,
+    Radius,
+    Font,
+    Shadow,
+    Spacing,
+} from './theme';
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
-        backgroundColor: '#F8F7FC',
+        backgroundColor: Colors.background,
+        paddingHorizontal: Spacing.lg,
+        paddingTop: 64,
     },
 
-    title: {
-        marginTop: 55,
-        fontSize: 30,
-        fontWeight: '800',
-        color: '#2D2A3A',
-        marginBottom: 8,
-    },
-
-    counter: {
-        fontSize: 16,
-        color: '#827D94',
-        marginBottom: 14,
-    },
-
-    button: {
-        backgroundColor: '#FFFFFF',
-        borderWidth: 1,
-        borderColor: '#E8E5F0',
-        paddingVertical: 14,
-        paddingHorizontal: 25,
-        borderRadius: 16,
+    topBar: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         marginBottom: 18,
-        width: 140,
     },
 
-    buttonText: {
-        color: '#625B77',
-        textAlign: 'center',
-        fontSize: 16,
+    backButton: {
+        width: 46,
+        height: 46,
+        borderRadius: Radius.round,
+        backgroundColor: Colors.card,
+        borderWidth: 1,
+        borderColor: Colors.border,
+        alignItems: 'center',
+        justifyContent: 'center',
+
+        ...Shadow.card,
+    },
+
+    backButtonText: {
+        color: Colors.textSecondary,
+        fontSize: 28,
         fontWeight: '700',
     },
 
+    topBarSpacer: {
+        width: 46,
+    },
+
+    title: {
+        color: Colors.text,
+        fontSize: Font.title,
+        fontWeight: '800',
+        letterSpacing: -0.8,
+    },
+
     list: {
-        paddingBottom: 40,
+        paddingBottom: 30,
     },
 
     emptyList: {
@@ -50,25 +63,29 @@ const styles = StyleSheet.create({
     },
 
     emptyBox: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: Colors.card,
+        borderRadius: Radius.large,
         borderWidth: 1,
-        borderColor: '#E8E5F0',
-        borderRadius: 24,
-        padding: 26,
+        borderColor: Colors.border,
+        padding: 28,
         alignItems: 'center',
+
+        ...Shadow.card,
     },
 
     emptyTitle: {
-        color: '#2D2A3A',
-        fontSize: 20,
+        color: Colors.text,
+        fontSize: 22,
         fontWeight: '800',
     },
 
     emptyText: {
-        color: '#827D94',
-        fontSize: 15,
+        color: Colors.textLight,
+        fontSize: Font.small,
         textAlign: 'center',
-        marginTop: 10,
-        lineHeight: 21,
+        marginTop: Spacing.sm,
+        lineHeight: 22,
     },
 });
+
+export default styles;
