@@ -1,10 +1,18 @@
 import { StyleSheet } from 'react-native';
 
+import {
+    Colors,
+    Radius,
+    Font,
+    Shadow,
+    Spacing,
+} from './theme';
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F8F7FC',
-        paddingHorizontal: 20,
+        backgroundColor: Colors.background,
+        paddingHorizontal: Spacing.lg,
         paddingTop: 64,
     },
 
@@ -16,39 +24,32 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 24,
+        marginBottom: Spacing.lg + 4,
     },
 
     backButton: {
         width: 46,
         height: 46,
-        borderRadius: 23,
-        backgroundColor: '#FFFFFF',
+        borderRadius: Radius.round,
+        backgroundColor: Colors.card,
         borderWidth: 1,
-        borderColor: '#E8E5F0',
+        borderColor: Colors.border,
         alignItems: 'center',
         justifyContent: 'center',
 
-        shadowColor: '#5C5670',
-        shadowOpacity: 0.06,
-        shadowRadius: 12,
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        elevation: 2,
+        ...Shadow.card,
     },
 
     backButtonText: {
-        color: '#625B77',
-        fontSize: 32,
+        color: Colors.textSecondary,
+        fontSize: Font.large,
         fontWeight: '400',
         marginTop: -5,
     },
 
     title: {
-        color: '#2D2A3A',
-        fontSize: 28,
+        color: Colors.text,
+        fontSize: Font.title,
         fontWeight: '800',
         letterSpacing: -0.8,
     },
@@ -60,20 +61,13 @@ const styles = StyleSheet.create({
     cameraFrame: {
         width: '100%',
         aspectRatio: 0.82,
-        borderRadius: 34,
+        borderRadius: Radius.camera,
         overflow: 'hidden',
-        backgroundColor: '#EDEAF5',
+        backgroundColor: Colors.cameraBackground,
         borderWidth: 2,
-        borderColor: '#FFFFFF',
+        borderColor: Colors.card,
 
-        shadowColor: '#5C5670',
-        shadowOpacity: 0.12,
-        shadowRadius: 18,
-        shadowOffset: {
-            width: 0,
-            height: 10,
-        },
-        elevation: 5,
+        ...Shadow.floating,
     },
 
     camera: {
@@ -82,78 +76,71 @@ const styles = StyleSheet.create({
 
     wordCard: {
         alignItems: 'center',
-        backgroundColor: '#FFFFFF',
-        borderRadius: 24,
+        backgroundColor: Colors.card,
+        borderRadius: Radius.large,
         borderWidth: 1,
-        borderColor: '#E8E5F0',
-        marginTop: 18,
-        paddingVertical: 20,
+        borderColor: Colors.border,
+        marginTop: Spacing.lg - 2,
+        paddingVertical: Spacing.lg,
         paddingHorizontal: 24,
 
-        shadowColor: '#5C5670',
-        shadowOpacity: 0.07,
-        shadowRadius: 14,
-        shadowOffset: {
-            width: 0,
-            height: 7,
-        },
-        elevation: 3,
+        ...Shadow.card,
     },
 
     wordCardCorrect: {
-        backgroundColor: '#D9F3E3',
-        borderColor: '#A9DDBD',
+        backgroundColor: Colors.success,
+        borderColor: Colors.success,
     },
 
     wordCardWrong: {
-        backgroundColor: '#FFE5E8',
-        borderColor: '#F2B9C1',
+        backgroundColor: Colors.error,
+        borderColor: Colors.error,
     },
 
     word: {
-        color: '#2D2A3A',
-        fontSize: 42,
+        color: Colors.text,
+        fontSize: Font.huge,
         fontWeight: '800',
         textAlign: 'center',
     },
 
     romaji: {
-        color: '#827D94',
-        fontSize: 17,
-        marginTop: 6,
+        color: Colors.textLight,
+        fontSize: Font.body,
+        marginTop: Spacing.xs,
         textAlign: 'center',
     },
 
     wordHint: {
-        color: '#827D94',
-        fontSize: 15,
+        color: Colors.textLight,
+        fontSize: Font.small,
         textAlign: 'center',
-        marginTop: 10,
+        marginTop: Spacing.sm,
     },
 
     loadingText: {
-        color: '#625B77',
-        fontSize: 16,
+        color: Colors.textSecondary,
+        fontSize: Font.body,
         fontWeight: '700',
         textAlign: 'center',
     },
 
     errorCard: {
-        marginTop: 18,
-        backgroundColor: '#FFF0F1',
-        borderRadius: 20,
-        padding: 16,
+        marginTop: Spacing.lg - 2,
+        backgroundColor: Colors.error,
+        borderRadius: Radius.medium,
+        padding: Spacing.md,
     },
 
     errorText: {
-        color: '#B94B5B',
+        color: Colors.errorText,
         textAlign: 'center',
-        fontSize: 16,
+        fontSize: Font.body,
         fontWeight: '700',
     },
 
     controls: {
-        marginTop: 30,
+        marginTop: Spacing.xl,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
@@ -162,51 +149,37 @@ const styles = StyleSheet.create({
     sideButton: {
         width: 62,
         height: 62,
-        borderRadius: 31,
-        backgroundColor: '#FFFFFF',
+        borderRadius: Radius.round,
+        backgroundColor: Colors.card,
         borderWidth: 1,
-        borderColor: '#E8E5F0',
+        borderColor: Colors.border,
         justifyContent: 'center',
         alignItems: 'center',
 
-        shadowColor: '#5C5670',
-        shadowOpacity: 0.07,
-        shadowRadius: 10,
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        elevation: 2,
+        ...Shadow.card,
     },
 
     sideButtonText: {
-        color: '#625B77',
+        color: Colors.textSecondary,
         fontSize: 31,
         fontWeight: '500',
     },
 
     flashActive: {
-        color: '#8D7FE8',
+        color: Colors.primaryDark,
     },
 
     captureButton: {
         width: 88,
         height: 88,
-        borderRadius: 44,
+        borderRadius: Radius.round,
         backgroundColor: '#EAE7FF',
         borderWidth: 3,
-        borderColor: '#A99BF7',
+        borderColor: Colors.primary,
         justifyContent: 'center',
         alignItems: 'center',
 
-        shadowColor: '#8D7FE8',
-        shadowOpacity: 0.22,
-        shadowRadius: 14,
-        shadowOffset: {
-            width: 0,
-            height: 7,
-        },
-        elevation: 5,
+        ...Shadow.floating,
     },
 
     captureButtonDisabled: {
@@ -216,88 +189,87 @@ const styles = StyleSheet.create({
     captureInner: {
         width: 68,
         height: 68,
-        borderRadius: 34,
-        backgroundColor: '#A99BF7',
+        borderRadius: Radius.round,
+        backgroundColor: Colors.primary,
         alignItems: 'center',
         justifyContent: 'center',
     },
 
     captureIcon: {
-        color: '#FFFFFF',
+        color: Colors.
+        card,
         fontSize: 26,
         lineHeight: 26,
     },
 
     correctBadge: {
         alignSelf: 'center',
-        marginTop: 18,
-        backgroundColor: '#E7F7EE',
-        borderRadius: 18,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+        marginTop: Spacing.lg - 2,
+        backgroundColor: Colors.success,
+        borderRadius: Radius.medium,
+        paddingVertical: Spacing.sm,
+        paddingHorizontal: Spacing.lg,
     },
 
     correctText: {
-        color: '#368A5D',
-        fontSize: 17,
+        color: Colors.successText,
+        fontSize: Font.body,
         fontWeight: '800',
     },
 
     wrongBadge: {
         alignSelf: 'center',
-        marginTop: 18,
-        backgroundColor: '#FFF0F1',
-        borderRadius: 18,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+        marginTop: Spacing.lg - 2,
+        backgroundColor: Colors.error,
+        borderRadius: Radius.medium,
+        paddingVertical: Spacing.sm,
+        paddingHorizontal: Spacing.lg,
     },
 
     wrongText: {
-        color: '#B94B5B',
-        fontSize: 16,
+        color: Colors.errorText,
+        fontSize: Font.body,
         fontWeight: '800',
     },
 
     permissionContainer: {
         flex: 1,
-        backgroundColor: '#F8F7FC',
+        backgroundColor: Colors.background,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 30,
+        padding: Spacing.xl,
     },
 
     permissionTitle: {
-        color: '#2D2A3A',
+        color: Colors.text,
         fontSize: 24,
         fontWeight: '800',
         textAlign: 'center',
     },
 
     permissionText: {
-        color: '#625B77',
-        fontSize: 16,
+        color: Colors.textSecondary,
+        fontSize: Font.body,
         lineHeight: 22,
         textAlign: 'center',
-        marginTop: 12,
+        marginTop: Spacing.sm + 2,
     },
 
     permissionButton: {
-        backgroundColor: '#A99BF7',
+        backgroundColor: Colors.primary,
         paddingHorizontal: 22,
         paddingVertical: 14,
-        borderRadius: 16,
+        borderRadius: Radius.medium,
         marginTop: 22,
+
+        ...Shadow.floating,
     },
 
     permissionButtonText: {
-        color: '#FFFFFF',
-        fontSize: 16,
+        color: Colors.card,
+        fontSize: Font.body,
         fontWeight: '800',
     },
-
-    captureButtonDisabled: {
-        opacity: 0.6
-    }
 });
 
 export default styles;
