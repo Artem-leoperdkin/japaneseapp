@@ -1,10 +1,18 @@
 import { StyleSheet } from "react-native";
 
+import {
+    Colors,
+    Radius,
+    Font,
+    Shadow,
+    Spacing,
+} from './theme.js'
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F8F7FC',
-        paddingHorizontal: 20,
+        backgroundColor: Colors.background,
+        paddingHorizontal: Spacing.lg,
         paddingTop: 64,
     },
     
@@ -16,8 +24,8 @@ const styles = StyleSheet.create({
     },
     
     logo: {
-        color: '#2D2A3A',
-        fontSize: 28,
+        color: Colors.text,
+        fontSize: Font.title,
         fontWeight: '800',
         letterSpacing: -0.8,
     },
@@ -30,45 +38,31 @@ const styles = StyleSheet.create({
     topIconButton: {
         width: 46,
         height: 46,
-        borderRadius: 23,
-        backgroundColor: '#FFFFFF',
+        borderRadius: Radius.round,
+        backgroundColor: Colors.card,
         borderWidth: 1,
-        borderColor: '#E8E5F0',
+        borderColor: Colors.border,
         alignItems: 'center',
         justifyContent: 'center',
     
-        shadowColor: '#5C5670',
-        shadowOpacity: 0.06,
-        shadowRadius: 12,
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        elevation: 2,
+        ...Shadow.card,
     },
     
     topIcon: {
-        color: '#625B77',
+        color: Colors.textSecondary,
         fontSize: 23,
     },
     
     cameraFrame: {
         width: '100%',
         aspectRatio: 0.82,
-        borderRadius: 34,
+        borderRadius: Radius.camera,
         overflow: 'hidden',
-        backgroundColor: '#EDEAF5',
+        backgroundColor: Colors.cameraBackground,
         borderWidth: 2,
-        borderColor: '#FFFFFF',
+        borderColor: Colors.card,
     
-        shadowColor: '#5C5670',
-        shadowOpacity: 0.12,
-        shadowRadius: 18,
-        shadowOffset: {
-            width: 0,
-            height: 10,
-        },
-        elevation: 5,
+        ...Shadow.floating,
     },
     
     camera: {
@@ -76,8 +70,8 @@ const styles = StyleSheet.create({
     },
     
     hint: {
-        color: '#827D94',
-        fontSize: 15,
+        color: Colors.textLight,
+        fontSize: Font.small,
         textAlign: 'center',
         marginTop: 18,
     },
@@ -92,73 +86,59 @@ const styles = StyleSheet.create({
     sideButton: {
         width: 62,
         height: 62,
-        borderRadius: 31,
-        backgroundColor: '#FFFFFF',
+        borderRadius: Radius.round,
+        backgroundColor: Colors.card,
         borderWidth: 1,
-        borderColor: '#E8E5F0',
+        borderColor: Colors.border,
         justifyContent: 'center',
         alignItems: 'center',
     
-        shadowColor: '#5C5670',
-        shadowOpacity: 0.07,
-        shadowRadius: 10,
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        elevation: 2,
+        ...Shadow.card,
     },
     
     sideButtonText: {
-        color: '#625B77',
+        color: Colors.textSecondary,
         fontSize: 31,
         fontWeight: '500',
     },
     
     flashActive: {
-        color: '#8D7FE8',
+        color: Colors.primaryDark,
     },
     
     captureButton: {
         width: 88,
         height: 88,
         borderRadius: 44,
-        backgroundColor: '#EAE7FF',
+        backgroundColor: Colors.primaryLight,
         borderWidth: 3,
-        borderColor: '#A99BF7',
+        borderColor: Colors.primary,
         justifyContent: 'center',
         alignItems: 'center',
     
-        shadowColor: '#8D7FE8',
-        shadowOpacity: 0.22,
-        shadowRadius: 14,
-        shadowOffset: {
-            width: 0,
-            height: 7,
-        },
-        elevation: 5,
+        ...Shadow.floating
     },
     
     captureInner: {
         width: 68,
         height: 68,
-        borderRadius: 34,
-        backgroundColor: '#A99BF7',
+        borderRadius: Radius.round,
+        backgroundColor: Colors.primary,
     },
     
     previewImage: {
         width: '100%',
         height: '100%',
-        borderRadius: 34,
-        backgroundColor: '#EDEAF5',
+        borderRadius: Radius.camera,
+        backgroundColor: Colors.cameraBackground,
         borderWidth: 2,
-        borderColor: '#FFFFFF',
+        borderColor: Colors.card,
     },
     
     previewFrame: {
         width: '100%',
         aspectRatio: 0.82,
-        borderRadius: 34,
+        borderRadius: Radius.camera,
         overflow: 'visible',
     },
         
@@ -168,30 +148,23 @@ const styles = StyleSheet.create({
         right: 14,
         width: 46,
         height: 46,
-        borderRadius: 23,
+        borderRadius: Radius.round,
         backgroundColor: 'rgba(255,255,255,0.92)',
         alignItems: 'center',
         justifyContent: 'center',
         
-        shadowColor: '#2D2A3A',
-        shadowOpacity: 0.16,
-        shadowRadius: 8,
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        elevation: 4,
+        ...Shadow.card,
     },
         
     retakeCircleIcon: {
-        color: '#625B77',
+        color: Colors.textSecondary,
         fontSize: 26,
         fontWeight: '700',
     },
     
     loadingText: {
-        color: '#625B77',
-        fontSize: 16,
+        color: Colors.textSecondary,
+        fontSize: Font.body,
         fontWeight: '700',
         textAlign: 'center',
     },
@@ -205,68 +178,54 @@ const styles = StyleSheet.create({
     },
         
     loadingEmoji: {
-        color: '#A99BF7',
+        color: Colors.primary,
         fontSize: 22,
     },
     
     resultBox: {
         alignItems: 'center',
-        backgroundColor: '#FFFFFF',
-        borderRadius: 24,
+        backgroundColor: Colors.card,
+        borderRadius: Radius.large,
         borderWidth: 1,
-        borderColor: '#E8E5F0',
+        borderColor: Colors.border,
         marginTop: 18,
         paddingVertical: 20,
         paddingHorizontal: 24,
     
-        shadowColor: '#5C5670',
-        shadowOpacity: 0.07,
-        shadowRadius: 14,
-        shadowOffset: {
-            width: 0,
-            height: 7,
-        },
-        elevation: 3,
+        ...Shadow.card,
     },
     
     japanese: {
-        color: '#2D2A3A',
-        fontSize: 42,
+        color: Colors.text,
+        fontSize: Font.huge,
         fontWeight: '800',
     },
     
     romaji: {
-        color: '#827D94',
-        fontSize: 17,
+        color: Colors.textLight,
+        fontSize: Font.body,
         marginTop: 6,
     },
     
     translation: {
-        color: '#4B465A',
+        color: Colors.textSecondary,
         fontSize: 19,
         marginTop: 10,
         textAlign: 'center',
     },
     
     saveButton: {
-        backgroundColor: '#A99BF7',
-        borderRadius: 18,
+        backgroundColor: Colors.primary,
+        borderRadius: Radius.medium,
         paddingVertical: 16,
         marginTop: 18,
     
-        shadowColor: '#8D7FE8',
-        shadowOpacity: 0.18,
-        shadowRadius: 12,
-        shadowOffset: {
-            width: 0,
-            height: 6,
-        },
-        elevation: 4,
+        ...Shadow.floating,
     },
     
     saveButtonText: {
-        color: '#FFFFFF',
-        fontSize: 17,
+        color: Colors.card,
+        fontSize: Font.body,
         fontWeight: '800',
         textAlign: 'center',
     },
@@ -278,52 +237,56 @@ const styles = StyleSheet.create({
     
     retakeButtonText: {
         color: '#756E88',
-        fontSize: 16,
+        fontSize: Font.body,
         fontWeight: '600',
     },
     
     quizButton: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: Colors.card,
         borderWidth: 1,
-        borderColor: '#E8E5F0',
-        borderRadius: 18,
+        borderColor: Colors.border,
+        borderRadius: Radius.medium,
         paddingVertical: 16,
         marginTop: 26,
         marginBottom: 26,
+
+        ...Shadow.card,
     },
     
     quizButtonText: {
-        color: '#625B77',
-        fontSize: 17,
+        color: Colors.textSecondary,
+        fontSize: Font.body,
         fontWeight: '700',
         textAlign: 'center',
     },
     
     permissionContainer: {
         flex: 1,
-        backgroundColor: '#F8F7FC',
+        backgroundColor: Colors.background,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 30,
+        padding: Spacing.xl,
     },
     
     permissionText: {
-        color: '#2D2A3A',
+        color: Colors.textSecondary,
         fontSize: 18,
         textAlign: 'center',
         marginBottom: 20,
     },
     
     permissionButton: {
-        backgroundColor: '#A99BF7',
+        backgroundColor: Colors.primary,
         paddingHorizontal: 22,
         paddingVertical: 14,
-        borderRadius: 16,
+        borderRadius: Radius.medium,
+
+        ...Shadow.floating,
     },
     
     permissionButtonText: {
-        color: '#FFFFFF',
-        fontSize: 16,
+        color: Colors.card,
+        fontSize: Font.body,
         fontWeight: '800',
         },
     
@@ -333,7 +296,7 @@ const styles = StyleSheet.create({
 
     modalOverlay: {
         flex: 1,
-        backgroundColor: 'rgba(24, 20, 38, 0.68)',
+        backgroundColor: Colors.overlay,
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 24,
@@ -342,26 +305,19 @@ const styles = StyleSheet.create({
     wordModalCard: {
         width: '100%',
         maxWidth: 380,
-        backgroundColor: '#FFFDFE',
-        borderRadius: 30,
+        backgroundColor: Colors.card,
+        borderRadius: Radius.xl,
         padding: 16,
 
-        shadowColor: '#171225',
-        shadowOpacity: 0.32,
-        shadowRadius: 28,
-        shadowOffset: {
-            width: 0,
-            height: 14,
-        },
-        elevation: 12,
+        ...Shadow.modal,
     },
 
     modalPhotoFrame: {
         width: '100%',
         aspectRatio: 1,
-        borderRadius: 20,
+        borderRadius: Radius.medium,
         overflow: 'hidden',
-        backgroundColor: '#EDEAF5',
+        backgroundColor: Colors.cameraBackground,
     },
 
     modalPhoto: {
@@ -371,7 +327,7 @@ const styles = StyleSheet.create({
 
     modalWord: {
         marginTop: 18,
-        color: '#2E2A42',
+        color: Colors.text,
         fontSize: 38,
         fontWeight: '800',
         textAlign: 'center',
@@ -380,14 +336,14 @@ const styles = StyleSheet.create({
 
     modalRomaji: {
         marginTop: 7,
-        color: '#8B849E',
-        fontSize: 17,
+        color: Colors.textLight,
+        fontSize: Font.body,
         textAlign: 'center',
     },
 
     modalTranslation: {
         marginTop: 8,
-        color: '#625B77',
+        color: Colors.textSecondary,
         fontSize: 20,
         fontWeight: '600',
         textAlign: 'center',
@@ -402,14 +358,14 @@ const styles = StyleSheet.create({
     retakeModalButton: {
         flex: 1,
         minHeight: 54,
-        borderRadius: 16,
-        backgroundColor: '#F0EDF7',
+        borderRadius: Radius.medium,
+        backgroundColor: Colors.cameraBackground,
         alignItems: 'center',
         justifyContent: 'center',
     },
 
     retakeModalText: {
-        color: '#625B77',
+        color: Colors.textSecondary,
         fontSize: 13,
         fontWeight: '700',
     },
@@ -417,24 +373,17 @@ const styles = StyleSheet.create({
     saveModalButton: {
         flex: 1,
         minHeight: 54,
-        borderRadius: 16,
-        backgroundColor: '#A99BF7',
+        borderRadius: Radius.medium,
+        backgroundColor: Colors.primary,
         alignItems: 'center',
         justifyContent: 'center',
 
-        shadowColor: '#8F80E8',
-        shadowOpacity: 0.3,
-        shadowRadius: 12,
-        shadowOffset: {
-            width: 0,
-            height: 6,
-        },
-        elevation: 5,
+        ...Shadow.floating,
     },
 
     saveModalText: {
-        color: '#FFFFFF',
-        fontSize: 16,
+        color: Colors.card,
+        fontSize: Font.body,
         fontWeight: '800',
     },
 
@@ -445,8 +394,8 @@ const styles = StyleSheet.create({
     },
 
     analyzingText: {
-        color: '#625B77',
-        fontSize: 17,
+        color: Colors.textSecondary,
+        fontSize: Font.body,
         fontWeight: '700',
     },
 });
