@@ -100,7 +100,7 @@ export default function SettingsScreen({
             
                         {language === 'ja' && (
                             <Text style={styles.check}>
-                                ✓
+                                {Icons.success}
                             </Text>
                         )}
                     </TouchableOpacity>
@@ -117,7 +117,7 @@ export default function SettingsScreen({
             
                         {language === 'it' && (
                             <Text style={styles.check}>
-                                ✓
+                                {Icons.success}
                             </Text>
                         )}
                     </TouchableOpacity>
@@ -163,7 +163,7 @@ export default function SettingsScreen({
             
                         {appLanguage === 'ru' && (
                             <Text style={styles.check}>
-                                ✓
+                                {Icons.success}
                             </Text>
                         )}
                     </TouchableOpacity>
@@ -180,7 +180,7 @@ export default function SettingsScreen({
             
                         {appLanguage === 'en' && (
                             <Text style={styles.check}>
-                                ✓
+                                {Icons.success}
                             </Text>
                         )}
                     </TouchableOpacity>

@@ -38,10 +38,15 @@ export const strings = {
         // Библиотека
 
         library: 'Мои слова',
-        totalWords: 'Всего слов',
-        delete: 'Удалить',
         cancel: 'Отмена',
-        deleteQuestion: 'Удалить это слово?',
+        back: 'Назад',
+        deleteTitle: 'Удаление',
+        deleteQuestion: 'Удалить слово',
+        deleteConfirm: 'Удалить слово "{word}"?',
+        noWordsTitle: 'Пока нет слов',
+        noWordsDescription:
+            'Сфотографируй объект и сохрани первое слово.',
+        wordsCount: 'Всего слов',
 
         // Настройки
 
