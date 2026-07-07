@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
         width: 88,
         height: 88,
         borderRadius: Radius.round,
-        backgroundColor: '#EAE7FF',
+        backgroundColor: Colors.primaryLight,
         borderWidth: 3,
         borderColor: Colors.primary,
         justifyContent: 'center',
@@ -269,6 +269,11 @@ const styles = StyleSheet.create({
         color: Colors.card,
         fontSize: Font.body,
         fontWeight: '800',
+    },
+
+    content: {
+        flexGrow: 1,
+        paddingBottom: Spacing.xl,
     },
 });
 

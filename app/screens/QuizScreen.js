@@ -59,7 +59,7 @@ export default function QuizScreen({ goBack, language, savedWords, appLanguage }
             );
 
             const response = await fetch(
-                `http://192.168.10.198:3000/random-word?language=${language}`,
+                `http://192.168.0.104:3000/random-word?language=${language}`,
                 {
                     method: 'POST',
                     headers: {
@@ -164,7 +164,7 @@ export default function QuizScreen({ goBack, language, savedWords, appLanguage }
             });
 
             const response = await fetch(
-                'http://192.168.10.198:3000/analyze',
+                'http://192.168.0.104:3000/analyze',
                 {
                     method: 'POST',
                     body: formData,
@@ -251,11 +251,7 @@ export default function QuizScreen({ goBack, language, savedWords, appLanguage }
     }
 
     return (
-        <ScrollView
-            style={styles.container}
-            contentContainerStyle={styles.content}
-            showsVerticalScrollIndicator={false}
-        >
+        <View style={styles.container}>
             <View style={styles.topBar}>
                 <TouchableOpacity
                     style={styles.backButton}
@@ -265,107 +261,110 @@ export default function QuizScreen({ goBack, language, savedWords, appLanguage }
                         {Icons.back}
                     </Text>
                 </TouchableOpacity>
-
+    
                 <Text style={styles.title}>
                     {t.quiz}
                 </Text>
-
+    
                 <View style={styles.topBarSpacer} />
             </View>
-
-            <View style={styles.cameraFrame}>
-                {photoUri ? (
-                    <Image
-                        source={{ uri: photoUri }}
-                        style={styles.camera}
-                    />
-                ) : (
-                    <CameraView
-                        ref={cameraRef}
-                        style={styles.camera}
-                        facing={facing}
-                        flash={flash}
-                    />
+    
+            <ScrollView
+                contentContainerStyle={styles.content}
+                showsVerticalScrollIndicator={false}
+            >
+                <View style={styles.cameraFrame}>
+                    {photoUri ? (
+                        <Image
+                            source={{ uri: photoUri }}
+                            style={styles.camera}
+                        />
+                    ) : (
+                        <CameraView
+                            ref={cameraRef}
+                            style={styles.camera}
+                            facing={facing}
+                            flash={flash}
+                        />
+                    )}
+                </View>
+    
+                {isLoading && (
+                    <View style={styles.wordCard}>
+                        <Text style={styles.loadingText}>
+                            {t.loadingWord}
+                        </Text>
+                    </View>
                 )}
-            </View>
-
-            {isLoading && (
-                <View style={styles.wordCard}>
-                    <Text style={styles.loadingText}>
-                        {t.loadingWord}
-                    </Text>
-                </View>
-            )}
-
-            {loadError && (
-                <View style={styles.errorCard}>
-                    <Text style={styles.errorText}>
-                        {loadError}
-                    </Text>
-                </View>
-            )}
-
-            {currentWord && !isLoading && (
-                <>
-                    <Animated.View
-                        style={[
-                            styles.wordCard,
-                            checkResult === 'correct' &&
-                                styles.wordCardCorrect,
-                            checkResult === 'wrong' &&
-                                styles.wordCardWrong,
-                            {
-                                transform: [
-                                    {
-                                        translateX:
-                                            shakeAnimation.interpolate({
+    
+                {loadError && (
+                    <View style={styles.errorCard}>
+                        <Text style={styles.errorText}>
+                            {loadError}
+                        </Text>
+                    </View>
+                )}
+    
+                {currentWord && !isLoading && (
+                    <>
+                        <Animated.View
+                            style={[
+                                styles.wordCard,
+                                checkResult === 'correct' &&
+                                    styles.wordCardCorrect,
+                                checkResult === 'wrong' &&
+                                    styles.wordCardWrong,
+                                {
+                                    transform: [
+                                        {
+                                            translateX: shakeAnimation.interpolate({
                                                 inputRange: [-1, 0, 1],
                                                 outputRange: [-10, 0, 10],
                                             }),
-                                    },
-                                ],
-                            },
-                        ]}
-                    >
-                        <Text style={styles.word}>
-                            {currentWord.word}
-                        </Text>
-
-                        {currentWord.romaji && (
-                            <Text style={styles.romaji}>
-                                {currentWord.romaji}
-                            </Text>
-                        )}
-                    </Animated.View>
-                    
-                    <Text style={styles.wordHint}>
-                            {t.objectHint}
-                    </Text>
-
-                    <View style={styles.controls}>
-                        <TouchableOpacity
-                            style={styles.sideButton}
-                            onPress={() =>
-                                setFlash(current =>
-                                    current === 'off' ? 'on' : 'off'
-                                )
-                            }
+                                        },
+                                    ],
+                                },
+                            ]}
                         >
-                            <Text
-                                style={[
-                                    styles.sideButtonText,
-                                    flash === 'on' &&
-                                        styles.flashActive,
-                                ]}
-                            >
-                                {Icons.flash}
+                            <Text style={styles.word}>
+                                {currentWord.word}
                             </Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={[
-                                styles.captureButton,
-                                isChecking &&
+    
+                            {currentWord.romaji && (
+                                <Text style={styles.romaji}>
+                                    {currentWord.romaji}
+                                </Text>
+                            )}
+                        </Animated.View>
+    
+                        <Text style={styles.wordHint}>
+                            {t.objectHint}
+                        </Text>
+    
+                        <View style={styles.controls}>
+                            <TouchableOpacity
+                                style={styles.sideButton}
+                                onPress={() =>
+                                    setFlash(current =>
+                                        current === 'off' ? 'on' : 'off'
+                                    )
+                                }
+                            >
+                                <Text
+                                    style={[
+                                        styles.sideButtonText,
+                                        flash === 'on' &&
+                                            styles.flashActive,
+                                    ]}
+                                >
+                                    {Icons.flash}
+                                </Text>
+                            </TouchableOpacity>
+    
+                            <TouchableOpacity
+                                style={[
+                                    styles.captureButton,
+                                    isChecking &&
                                     styles.captureButtonDisabled,
                             ]}
                             onPress={takePhoto}
@@ -389,6 +388,7 @@ export default function QuizScreen({ goBack, language, savedWords, appLanguage }
                             </Text>
                         </TouchableOpacity>
                     </View>
+
                     {checkResult === 'correct' && (
                         <View style={styles.correctBadge}>
                             <Text style={styles.correctText}>
@@ -405,7 +405,8 @@ export default function QuizScreen({ goBack, language, savedWords, appLanguage }
                         </View>
                     )}
                 </>
-            )}
-        </ScrollView>
+                )}
+            </ScrollView>
+        </View>
     );
 }
