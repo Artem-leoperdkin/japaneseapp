@@ -59,7 +59,7 @@ export default function QuizScreen({ goBack, language, savedWords, appLanguage }
             );
 
             const response = await fetch(
-                `http://192.168.0.104:3000/random-word?language=${language}`,
+                `https://lapp-os99.onrender.com/random-word?language=${language}`,
                 {
                     method: 'POST',
                     headers: {
@@ -164,7 +164,7 @@ export default function QuizScreen({ goBack, language, savedWords, appLanguage }
             });
 
             const response = await fetch(
-                'http://192.168.0.104:3000/analyze',
+                'https://lapp-os99.onrender.com/analyze',
                 {
                     method: 'POST',
                     body: formData,
