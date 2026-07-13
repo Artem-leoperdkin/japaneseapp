@@ -4,10 +4,14 @@ import torch
 import open_clip
 import json
 import io
+from pathlib import Path
 
 app = FastAPI()
 
-with open("data/objects.json", "r", encoding="utf-8") as file:
+BASE_DIR = Path(__file__).resolve().parent
+OBJECTS_PATH = BASE_DIR.parent / "shared" / "objects.json"
+
+with open(OBJECTS_PATH, "r", encoding="utf-8") as file:
     objects = json.load(file)
 
 labels = [obj["clip_label"] for obj in objects]
@@ -45,7 +49,6 @@ async def root():
 
 @app.post("/detect")
 async def detect(image: UploadFile = File(...)):
-
     image_bytes = await image.read()
 
     image = Image.open(
@@ -55,7 +58,6 @@ async def detect(image: UploadFile = File(...)):
     image = preprocess(image).unsqueeze(0).to(device)
 
     with torch.no_grad():
-
         image_features = model.encode_image(image)
 
         image_features /= image_features.norm(
