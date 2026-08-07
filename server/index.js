@@ -4,6 +4,7 @@ import express, { json } from 'express'
 import cors from 'cors'
 import multer from 'multer'
 import path from 'path';
+import 'dotenv/config';
 import { getWord } from './data/getWord.js';
 import { getObject } from './data/getObject.js';
 
@@ -11,6 +12,11 @@ const app = express()
 
 app.use(cors());
 app.use(express.json());
+
+app.use((req, res, next) => {
+    console.log(req.method, req.url);
+    next();
+});
 
 
 const storage = multer.diskStorage({
@@ -39,7 +45,9 @@ app.post(
     '/analyze',
     upload.single('image'),
     async (req, res) => {
+        console.log("=== /analyze ===");
         console.log(req.file);
+        console.log(req.body);
         try {
             const objectName =
                 await detectObject(req.file.path);

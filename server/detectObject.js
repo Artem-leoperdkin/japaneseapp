@@ -10,13 +10,24 @@ export async function detectObject(imagePath) {
         "image.jpg"
     );
 
-    const response = await fetch(
-        process.env.CLIP_API_URL + "/detect",
-        {
-            method: "POST",
-            body: formData
-        }
-    );
+    console.log("CLIP_API_URL =", process.env.CLIP_API_URL);
+
+    let response;
+
+    try {
+        response = await fetch(
+            process.env.CLIP_API_URL + "/detect",
+            {
+                method: "POST",
+                body: formData
+            }
+        );
+    } catch (e) {
+        console.error("FETCH ERROR:", e);
+        throw e;
+    }
+
+    console.log("Sending request...");
 
     if (!response.ok) {
         throw new Error(await response.text());

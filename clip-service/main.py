@@ -28,12 +28,13 @@ model, _, preprocess = open_clip.create_model_and_transforms(
 
 model = model.to(device)
 model.eval()
+torch.set_grad_enabled(False)
 
 tokenizer = open_clip.get_tokenizer("ViT-B-32")
 
 text = tokenizer(labels).to(device)
 
-with torch.no_grad():
+with torch.inference_mode():
     text_features = model.encode_text(text)
     text_features /= text_features.norm(dim=-1, keepdim=True)
 
@@ -43,7 +44,19 @@ print("CLIP loaded")
 @app.get("/")
 async def root():
     return {
-        "status": "ok"
+        "status": "ok",
+        "device": device,
+        "objects": len(objects)
+    }
+
+
+@app.get("/health")
+async def health():
+    return {
+        "status": "healthy",
+        "device": device,
+        "objects": len(objects),
+        "model": "ViT-B-32"
     }
 
 
@@ -51,13 +64,14 @@ async def root():
 async def detect(image: UploadFile = File(...)):
     image_bytes = await image.read()
 
-    image = Image.open(
-        io.BytesIO(image_bytes)
-    ).convert("RGB")
+    try:
+        image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+    except Exception:
+        return {"error": "Invalid image"}
 
     image = preprocess(image).unsqueeze(0).to(device)
 
-    with torch.no_grad():
+    with torch.inference_mode():
         image_features = model.encode_image(image)
 
         image_features /= image_features.norm(

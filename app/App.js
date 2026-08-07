@@ -106,7 +106,7 @@ export default function App() {
       console.log('App lang:', appLanguage);
 
       const response = await fetch(
-        "https://lapp-os99.onrender.com/analyze",
+        "http://192.168.0.106:3000/analyze",
         {
           method: "POST",
           body: formData,
