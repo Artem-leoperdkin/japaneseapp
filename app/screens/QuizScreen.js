@@ -59,7 +59,7 @@ export default function QuizScreen({ goBack, language, savedWords, appLanguage }
             );
 
             const response = await fetch(
-                `http://192.168.0.106:3000/random-word?language=${language}`,
+                `http://192.168.0.108:3000/random-word?language=${language}`,
                 {
                     method: 'POST',
                     headers: {
@@ -164,7 +164,7 @@ export default function QuizScreen({ goBack, language, savedWords, appLanguage }
             });
 
             const response = await fetch(
-                'http://192.168.0.106:3000/analyze',
+                'http://192.168.0.108:3000/analyze',
                 {
                     method: 'POST',
                     body: formData,
